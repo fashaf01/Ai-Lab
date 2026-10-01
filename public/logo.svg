@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Labshelf">
+  <path d="M13.6 30h20.8l4.1 6c1.5 3-.5 3-1.5 3H11c-1 0-3 0-1.5-3z" fill="#FF5A2C"/>
+  <path d="M19 5h10M20 5v12L9.5 36c-1.500 3 .5 3 1.500 3h26c1 0 3 0 1.500-3L28 17V5" fill="none" stroke="#15120E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="23" cy="25" r="1.800" fill="#15120E"/><circle cx="27.500" cy="21" r="1.300" fill="#15120E"/>
+  <path d="M5 43.500h38" stroke="#15120E" stroke-width="3" stroke-linecap="round"/>
+</svg>
