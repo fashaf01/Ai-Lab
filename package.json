@@ -1,0 +1,13 @@
+{
+  "name": "ai-lab-marketplace",
+  "version": "0.1.0",
+  "description": "A low-price marketplace where creators sell AI-made plugins, sites, agents and more.",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/server.js",
+    "seed": "node --disable-warning=ExperimentalWarning src/seed.js",
+    "test": "node --disable-warning=ExperimentalWarning --test test/*.test.js"
+  }
+}
