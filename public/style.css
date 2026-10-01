@@ -166,3 +166,25 @@ html,body{overflow-x:clip}
 .foot-g a.brand{display:flex;padding:0;margin-bottom:10px}.foot-g a.brand:hover{text-decoration:none}
 .foot-g h4+a,.foot-g a{text-transform:none}.foot-g div:nth-child(2) a:not(:first-of-type){text-transform:capitalize}
 .step .n{-webkit-text-stroke:0;color:var(--accent);text-shadow:2px 2px 0 var(--ink);letter-spacing:-.04em}
+
+/* cover art, skeletons, faq, extras */
+.cover{display:block;width:100%;aspect-ratio:2/1;border-bottom:var(--bw) solid var(--ink);object-fit:cover}
+.hero-cover{border:var(--bw) solid var(--ink);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin:0 0 22px}.hero-cover .cover{border-bottom:0;aspect-ratio:21/9}
+.stack .cover{display:none}
+.skel .cover{background:var(--paper-2)}.skel{pointer-events:none}
+.skel h3,.skel p{background:var(--paper-2);border-radius:6px;color:transparent}
+@media(prefers-reduced-motion:no-preference){.skel{animation:pulse 1.2s ease-in-out infinite}}
+@keyframes pulse{50%{opacity:.55}}
+.step .ico{font-size:2rem;display:block;margin-bottom:8px}
+.faq{display:grid;gap:12px;max-width:760px}
+.faq details{background:var(--card);border:var(--bw) solid var(--ink);border-radius:12px;padding:0 18px;box-shadow:3px 3px 0 var(--ink)}
+.faq summary{cursor:pointer;font:700 1.05rem var(--serif);padding:16px 26px 16px 0;list-style:none;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:50%;translate:0 -50%;font:800 1.4rem var(--mono);color:var(--accent);-webkit-text-stroke:1px var(--ink)}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:0 0 16px;color:var(--mute)}
+::selection{background:var(--accent);color:var(--on-accent)}
+.hero{padding-bottom:70px}
+@media(min-width:761px){.stack{height:430px}.stack .tagc:nth-child(1){top:0}.stack .tagc:nth-child(2){top:14%}.stack .tagc:nth-child(3){top:40%}}
+@media(max-width:760px){.stack{height:360px}.hero{padding-bottom:40px}}
+@media(max-width:760px){.stack{height:450px}.stack .tagc:nth-child(1){top:0}.stack .tagc:nth-child(2){top:12%}.stack .tagc:nth-child(3){top:42%}}

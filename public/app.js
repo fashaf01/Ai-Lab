@@ -39,11 +39,41 @@ function footer() {
     <div class="mega" aria-hidden="true">labshelf</div></div>`;
 }
 
+
+// ---------- generated cover art (no image uploads needed) ----------
+const INK = '#15120E', PAPER = '#FBF8F1', ORANGE = '#FF5A2C';
+let coverN = 0;
+function cover(i) {
+  const pid = `cv${++coverN}`;
+  const k = (i.id * 37) % 24, j = (i.id * 53) % 18;
+  const st = `stroke="${INK}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"`;
+  const art = {
+    plugin: `<rect x="62" y="48" width="70" height="62" rx="10" fill="${PAPER}" ${st}/><rect x="146" y="48" width="70" height="62" rx="10" fill="${ORANGE}" ${st}/>
+      <rect x="226" y="${60 + (k % 10)}" width="34" height="38" rx="8" fill="${PAPER}" ${st} transform="rotate(${8 + (j % 8)} 243 80)"/><path d="M132 70h14M132 90h14" ${st}/>`,
+    website: `<rect x="50" y="26" width="220" height="104" rx="10" fill="${PAPER}" ${st}/><path d="M50 52h220" ${st}/><circle cx="68" cy="39" r="4" fill="${ORANGE}"/><circle cx="82" cy="39" r="4" fill="${INK}"/><circle cx="96" cy="39" r="4" fill="${INK}"/>
+      <rect x="66" y="66" width="${70 + k * 2}" height="14" rx="4" fill="${INK}"/><rect x="66" y="90" width="120" height="8" rx="4" fill="${INK}" opacity=".35"/><rect x="66" y="106" width="96" height="8" rx="4" fill="${INK}" opacity=".35"/><rect x="204" y="66" width="52" height="50" rx="8" fill="${ORANGE}" ${st}/>`,
+    agent: `<path d="M160 28v16" ${st}/><circle cx="160" cy="24" r="6" fill="${ORANGE}" ${st}/><rect x="100" y="44" width="120" height="86" rx="22" fill="${PAPER}" ${st}/>
+      <circle cx="136" cy="80" r="11" fill="${INK}"/><circle cx="184" cy="80" r="11" fill="${INK}"/><circle cx="${139 + (k % 4)}" cy="77" r="3" fill="${PAPER}"/><circle cx="${187 + (k % 4)}" cy="77" r="3" fill="${PAPER}"/>
+      <path d="M138 106q22 ${12 + (j % 6)} 44 0" fill="none" ${st}/><path d="M100 84H86M220 84h14" ${st}/>`,
+    template: `<rect x="56" y="24" width="208" height="112" rx="10" fill="${PAPER}" ${st}/><rect x="70" y="38" width="180" height="22" rx="5" fill="${ORANGE}" ${st}/>
+      <rect x="70" y="72" width="${56 + (k % 3) * 8}" height="52" rx="5" fill="${INK}" opacity=".15" ${st}/><rect x="${136 + (k % 3) * 8}" y="72" width="${114 - (k % 3) * 8}" height="22" rx="5" fill="${INK}" opacity=".15" ${st}/><rect x="${136 + (k % 3) * 8}" y="102" width="${114 - (k % 3) * 8}" height="22" rx="5" fill="${INK}" opacity=".15" ${st}/>`,
+    'prompt-pack': `<rect x="92" y="40" width="140" height="92" rx="12" fill="${PAPER}" ${st}  transform="rotate(${-9 - (j % 4)} 160 86)"/><rect x="88" y="34" width="140" height="92" rx="12" fill="${PAPER}" ${st} transform="rotate(${4 + (j % 4)} 160 80)"/>
+      <text x="112" y="104" font-family="Georgia,serif" font-size="78" font-weight="700" fill="${ORANGE}" stroke="${INK}" stroke-width="2.5">“</text><path d="M170 62h42M170 80h34M170 98h40" ${st}/>`,
+    script: `<rect x="48" y="26" width="224" height="108" rx="10" fill="${INK}" ${st}/><path d="M48 50h224" stroke="#444" stroke-width="2"/><circle cx="64" cy="38" r="4" fill="${ORANGE}"/><circle cx="78" cy="38" r="4" fill="#C8F169"/><circle cx="92" cy="38" r="4" fill="#FFE27A"/>
+      <path d="M68 74l16 12-16 12" fill="none" stroke="#C8F169" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M96 98h${34 + k * 2}" stroke="${PAPER}" stroke-width="4" stroke-linecap="round"/><path d="M96 78h70M96 118h48" stroke="${PAPER}" stroke-width="3" stroke-linecap="round" opacity=".4"/>`,
+    other: `<circle cx="104" cy="82" r="34" fill="${ORANGE}" ${st}/><rect x="146" y="${44 + (k % 8)}" width="64" height="64" rx="8" fill="${PAPER}" ${st} transform="rotate(${10 + (j % 10)} 178 80)"/><path d="M224 120l26-50 26 50z" fill="${INK}" ${st} transform="translate(-20 0)"/>`,
+  }[i.category] || '';
+  const dots = `<pattern id="${pid}" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="${INK}" opacity=".18"/></pattern>`;
+  return `<svg class="cover" viewBox="0 0 320 160" role="img" aria-label="${esc(i.category)} illustration" preserveAspectRatio="xMidYMid slice"><defs>${dots}</defs><rect width="320" height="160" fill="var(--c,#D9D2C0)"/><rect width="320" height="160" fill="url(#${pid})"/>${art}</svg>`;
+}
+const setTitle = (t) => { document.title = t ? `${t} · Labshelf` : 'Labshelf — things made with AI, priced for people'; };
+const skeletons = (n = 6) => Array.from({ length: n }, () => '<div class="tagc skel" aria-hidden="true"><div class="band">&nbsp;</div><div class="cover"></div><div class="body"><h3>&nbsp;</h3><p>&nbsp;</p></div></div>').join('');
+
 // ---------- components ----------
 function tagCard(i, tag = 'a') {
   const href = tag === 'a' ? ` href="#/item/${i.id}"` : '';
   return `<${tag} class="tagc c-${esc(i.category)}"${href}>
-    <div class="band"><span>№ ${num(i.id)}</span><span>${esc(i.category.replace('-', ' '))}</span></div><i class="hole"></i>
+    <div class="band"><span>№ ${num(i.id)}</span><span>${esc(i.category.replace('-', ' '))}</span></div><i class="hole"></i>${cover(i)}
     <div class="body"><h3>${esc(i.title)}</h3><p>${esc(i.summary)}</p></div>
     <div class="foot"><span class="by">by <b>${esc(i.creator)}</b>${i.aiTool ? `<br>made with ${esc(i.aiTool)}` : ''}</span>
       <span class="sticker ${i.priceCents ? '' : 'free'}">${money(i.priceCents)}</span></div></${tag}>`;
@@ -70,15 +100,35 @@ async function home() {
     <div class="ticker" aria-hidden="true"><div>${tick}</div></div>
     <section class="block"><div class="sec-head"><div><p class="eyebrow">Pick a shelf</p><h2>What are you looking for?</h2></div></div>
       <div class="cats">${cfg.categories.map((c) => `<a class="chip c-${c}" href="#/shelves/${c}">${esc(c.replace('-', ' '))}</a>`).join('')}</div></section>
+    <section class="block"><div class="stats">
+      <div class="stat"><small>Things on the shelf</small><b>${items.length}</b></div>
+      <div class="stat"><small>Independent creators</small><b>${new Set(items.map((i) => i.creatorId)).size}</b></div>
+      <div class="stat"><small>Downloads so far</small><b>${items.reduce((a, i) => a + i.downloads, 0)}</b></div>
+      <div class="stat hot"><small>Average price</small><b>${items.filter((i) => i.priceCents).length ? usd(Math.round(items.filter((i) => i.priceCents).reduce((a, i) => a + i.priceCents, 0) / items.filter((i) => i.priceCents).length)) : '—'}</b></div></div></section>
     <section class="block"><div class="sec-head"><div><p class="eyebrow">Just catalogued</p><h2>Fresh on the shelf</h2></div><a class="btn ghost" href="#/shelves">See everything →</a></div>
       <div class="grid">${fresh.map((i) => tagCard(i)).join('') || '<p class="mute">The shelves are being stocked. Be the first to list something.</p>'}</div></section>
     <section class="block"><div class="sec-head"><div><p class="eyebrow">Simple on both sides</p><h2>How Labshelf works</h2></div></div>${steps()}</section>
+    <section class="block"><div class="sec-head"><div><p class="eyebrow">Why shop here</p><h2>Small prices. Honest labels.</h2></div></div>${why()}</section>
+    <section class="block"><div class="sec-head"><div><p class="eyebrow">Good questions</p><h2>FAQ</h2></div></div>${faq()}</section>
     ${ctaBand()}`;
+  setTitle('');
 }
 const steps = () => `<div class="steps">
   <div class="step"><span class="n">01</span><h3>Make it with AI</h3><p>A plugin, a site, an agent, a prompt pack. If AI helped you build it, it belongs here.</p></div>
   <div class="step"><span class="n">02</span><h3>Tag it &amp; shelve it</h3><p>Give it a price up to ${usd(cfg.maxPriceCents)}. We catalogue it with its own number and a label that says what made it.</p></div>
   <div class="step"><span class="n">03</span><h3>Get paid fairly</h3><p>You keep ${100 - cfg.saleFeeBps / 100}% of every sale. Cash out from ${usd(cfg.minWithdrawCents)}; we take just ${pct(cfg.withdrawFeeBps)} on the way out.</p></div></div>`;
+
+const why = () => `<div class="steps">
+  <div class="step"><span class="ico">🏷️</span><h3>Priced for people</h3><p>Nothing here costs more than ${usd(cfg.maxPriceCents)}. Many things are free.</p></div>
+  <div class="step"><span class="ico">🧪</span><h3>Labelled as AI-made</h3><p>Every listing says what it was made with, so you always know what you're getting.</p></div>
+  <div class="step"><span class="ico">🤝</span><h3>Creators get paid</h3><p>Makers keep ${100 - cfg.saleFeeBps / 100}% of every sale — so they keep making things.</p></div></div>`;
+const faq = () => `<div class="faq">${[
+  ['What can I sell on Labshelf?', 'Anything you built with the help of AI: plugins, websites, agents, templates, prompt packs and scripts. You supply a download link; buyers see it after they get your item.'],
+  ['What does it cost to sell?', `Listing is free. We keep ${pct(cfg.saleFeeBps)} of each paid sale, and ${pct(cfg.withdrawFeeBps)} of the amount when you cash out.`],
+  ['When can I cash out?', `Once your balance reaches ${usd(cfg.minWithdrawCents)}. You request a withdrawal from your earnings page and we send it to the account you choose.`],
+  ['Do I have to say it was made with AI?', 'Yes, that is the idea of the place. Add the tool you used in the "Made with" field — it shows on your tag.'],
+  ['Is checkout live yet?', 'Labshelf is in preview. Browsing, listing and the earnings flow all work, but no real card is charged until payments launch.'],
+].map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>`;
 
 async function shelves(cat) {
   app.innerHTML = `<div style="padding-top:40px"><p class="eyebrow">The shelves</p><h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">${cat ? esc(cat.replace('-', ' ')) + 's' : 'Everything on the shelf'}</h1></div>
@@ -86,7 +136,8 @@ async function shelves(cat) {
       ${cfg.categories.map((c) => `<a class="chip c-${c}" href="#/shelves/${c}" ${c === cat ? 'aria-current="true"' : ''}>${esc(c.replace('-', ' '))}</a>`).join('')}</div>
     <div class="bar"><input id="q" type="search" placeholder="Search by name or what it does…" aria-label="Search"><select id="sort" aria-label="Sort">
       <option value="new">Newest first</option><option value="popular">Most downloaded</option><option value="cheap">Lowest price</option></select></div>
-    <div id="list" class="grid" style="margin-top:8px"></div>`;
+    <div id="list" class="grid" style="margin-top:8px">${skeletons()}</div>`;
+  setTitle(cat ? cat.replace('-', ' ') + 's' : 'Shelves');
   const load = async () => {
     const p = new URLSearchParams({ q: $('#q').value, category: cat || '', sort: $('#sort').value });
     try {
@@ -108,6 +159,7 @@ async function itemPage(id) {
   app.innerHTML = `<p style="padding-top:26px"><a href="#/shelves">← Back to the shelves</a></p>
     <div class="sheet"><article><div class="cats"><span class="chip c-${esc(i.category)}">${esc(i.category.replace('-', ' '))}</span><span class="chip all">№ ${num(i.id)}</span></div>
       <h1 style="font-size:clamp(2rem,5vw,3.2rem);margin:16px 0 10px">${esc(i.title)}</h1>
+      <div class="c-${esc(i.category)} hero-cover">${cover(i)}</div>
       <p class="mute" style="font-size:1.15rem;margin:0 0 22px">${esc(i.summary)}</p>
       <div class="panel flat"><h3>About this ${esc(i.category.replace('-', ' '))}</h3><p class="desc">${esc(i.description)}</p>
         ${i.demoUrl ? `<p><a class="btn ghost" target="_blank" rel="noopener noreferrer" href="${safeHref(i.demoUrl)}">Open live demo ↗</a></p>` : ''}</div></article>
@@ -116,7 +168,15 @@ async function itemPage(id) {
         <ul class="checks"><li>One-time price, no subscription</li><li>Direct download link</li><li>Creator keeps ${100 - cfg.saleFeeBps / 100}%</li></ul>
         <dl class="meta"><div><dt>Creator</dt><dd>${esc(i.creator)}</dd></div><div><dt>Made with</dt><dd>${esc(i.aiTool || '—')}</dd></div>
         <div><dt>Downloads</dt><dd>${i.downloads}</dd></div><div><dt>Shelved</dt><dd>${date(i.createdAt)}</dd></div></dl>
-        ${i.isOwner ? `<p><a href="#/sell/${i.id}">Edit this listing</a></p>` : ''}</aside></div>`;
+        ${i.isOwner ? `<p><a href="#/sell/${i.id}">Edit this listing</a></p>` : ''}
+        <p><button class="btn ghost" id="copy" style="width:100%;justify-content:center">Copy link to share</button></p></aside></div>
+    <section class="block"><div class="sec-head"><h2 style="font-size:1.7rem">More on this shelf</h2></div><div class="grid" id="rel"></div></section>`;
+  setTitle(i.title);
+  $('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(location.href); toast('Link copied'); } catch { toast('Copy the address bar link'); } });
+  api('/items?category=' + encodeURIComponent(i.category)).then(({ items }) => {
+    const rel = items.filter((x) => x.id !== i.id).slice(0, 3);
+    $('#rel').innerHTML = rel.map((x) => tagCard(x)).join('') || '<p class="mute">Nothing else here yet — you could be the first. <a href="#/creators">Sell yours</a>.</p>';
+  }).catch(() => {});
   $('#buy')?.addEventListener('click', async (e) => {
     if (!me) return go('#/login');
     e.target.disabled = true;
@@ -127,6 +187,7 @@ async function itemPage(id) {
 
 function authPage(mode) {
   const reg = mode === 'register';
+  setTitle(reg ? 'Join' : 'Log in');
   app.innerHTML = `<div class="panel narrow"><p class="eyebrow">${reg ? 'Open a shelf' : 'Welcome back'}</p><h1 style="font-size:2.4rem">${reg ? 'Join Labshelf' : 'Log in'}</h1><div id="msg"></div>
     <form id="f">${reg ? '<label for="name">Your name</label><input id="name" name="name" required minlength="2" autocomplete="name">' : ''}
     <label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email">
@@ -143,7 +204,7 @@ function authPage(mode) {
 async function library() {
   const { items } = await api('/library');
   app.innerHTML = `<div style="padding-top:40px"><p class="eyebrow">Yours to keep</p><h1>My library</h1></div>
-    <div class="grid" style="margin-top:26px">${items.map((i) => `<div class="tagc c-${esc(i.category)}"><div class="band"><span>№ ${num(i.id)}</span><span>${esc(i.category.replace('-', ' '))}</span></div><i class="hole"></i>
+    <div class="grid" style="margin-top:26px">${items.map((i) => `<div class="tagc c-${esc(i.category)}"><div class="band"><span>№ ${num(i.id)}</span><span>${esc(i.category.replace('-', ' '))}</span></div><i class="hole"></i>${cover(i)}
       <div class="body"><h3>${esc(i.title)}</h3><p>${esc(i.summary)}</p></div>
       <div class="foot"><a class="btn" target="_blank" rel="noopener noreferrer" href="${safeHref(i.deliveryUrl)}">Download</a><a href="#/item/${i.id}">Details</a></div></div>`).join('') ||
       '<p class="mute">Your library is empty. <a href="#/shelves">Browse the shelves</a>.</p>'}</div>`;
@@ -224,6 +285,7 @@ async function adminPage() {
 
 // ----- static brand/story pages -----
 function how() {
+  setTitle('How it works');
   app.innerHTML = `<div style="padding-top:44px"><p class="eyebrow">How it works</p><h1>Fair for buyers.<br>Fairer for <em>creators</em>.</h1></div>
     <section class="block">${steps()}</section>
     <section class="block"><h2>Where the money goes</h2><div class="stats">
@@ -238,6 +300,7 @@ function how() {
 }
 
 function creators() {
+  setTitle('For creators');
   app.innerHTML = `<div style="padding-top:44px"><p class="eyebrow">For creators</p><h1>Your AI side project,<br>on a <em>real shelf</em>.</h1>
     <p class="mute" style="font-size:1.2rem;max-width:46ch;margin-top:18px">List it in minutes, set a small price, keep ${100 - cfg.saleFeeBps / 100}% of every sale.</p></div>
     <section class="block"><div class="panel"><h2 style="font-size:1.7rem">See what you'd keep</h2><div class="calc">
@@ -260,6 +323,7 @@ function creators() {
 }
 
 function brand() {
+  setTitle('Brand guide');
   const sw = (n, v, d) => `<div class="sw"><i style="background:${v}"></i><div>${n}<span>${v} · ${d}</span></div></div>`;
   app.innerHTML = `<div style="padding-top:44px"><p class="eyebrow">Brand guide v1</p><h1>The <em>Labshelf</em> identity</h1>
     <p class="mute" style="font-size:1.15rem;max-width:56ch;margin-top:16px">Idea: every AI-made creation is a <b>specimen</b> — catalogued, labelled and shelved so ordinary people can pick it up. Warm paper, black ink, one loud orange. Friendly, tactile, a little nerdy.</p></div>
@@ -294,6 +358,12 @@ function brand() {
 └─ Signed in: /library · /sell[/:id] · /creator (earnings) · /admin</pre></div></section>`;
 }
 
+function notFound() {
+  setTitle('Not found');
+  app.innerHTML = `<div class="panel wide" style="text-align:center;margin-top:60px"><img src="/logo.svg" width="72" height="72" alt="" style="opacity:.9"><p class="eyebrow">Error 404 · № ????</p>
+    <h1 style="font-size:2.6rem">That shelf is empty.</h1><p class="mute">We couldn't find that page. Maybe it was sold out.</p><p><a class="btn big" href="#/">Back to the shelves</a></p></div>`;
+}
+
 // ---------- router ----------
 const guarded = new Set(['library', 'sell', 'creator', 'admin']);
 async function route() {
@@ -311,7 +381,8 @@ async function route() {
     else if (name === 'how') how();
     else if (name === 'creators') creators();
     else if (name === 'brand') brand();
-    else await home();
+    else if (name === '') await home();
+    else notFound();
   } catch (e) { app.innerHTML = err(e); }
   window.scrollTo(0, 0);
 }
