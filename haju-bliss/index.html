@@ -342,6 +342,7 @@ footer .logo small { color: inherit; opacity: .6; }
           <span class="chip">Homemade</span>
           <span class="chip">Cash on delivery</span>
         </div>
+        <div class="meta"><a class="btn" href="https://wa.me/94782897650" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn ghost" href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">@haju__bliss</a></div>
       </div>
       <div class="spot" id="spot"></div>
     </section>
@@ -414,7 +415,7 @@ footer .logo small { color: inherit; opacity: .6; }
         <p style="max-width:40ch;opacity:.8;font-size:14px;margin:16px 0 0">Brownies, cookies, cakes and traditional sweets, baked fresh at home. Place your order here and we'll confirm it by message.</p>
       </div>
       <div><h4>Shop</h4><ul><li><a href="#shop" data-nav="">Best Sellers</a></li><li><a href="#shop" data-nav="Brownies">Brownies</a></li><li><a href="#shop" data-nav="Cookies">Cookies</a></li><li><a href="#shop" data-nav="Cakes">Cakes</a></li><li><a href="#shop" data-nav="Sweets">Sweets</a></li></ul></div>
-      <div><h4>Haju Bliss</h4><ul><li><a href="#">About us</a></li><li><a href="#">How to order</a></li><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h4>Order &amp; contact</h4><ul><li><a href="https://wa.me/94782897650" target="_blank" rel="noopener">WhatsApp: <span style="user-select:all">078 289 7650</span></a></li><li><a href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">Instagram: @haju__bliss</a></li></ul></div>
     </div>
     <div class="foot-base">
       <span>© <span id="yr">2026</span> Haju Bliss. Prices in Sri Lankan Rupees.</span>
@@ -467,7 +468,8 @@ footer .logo small { color: inherit; opacity: .6; }
   /* ---------- Settings: edit these ---------- */
   // Your WhatsApp number in international format, digits only (e.g. "9477xxxxxxx").
   // When set, "Send order" opens WhatsApp with the order filled in. When empty, the order is shown for copying.
-  const WHATSAPP_NUMBER = "";
+  const WHATSAPP_NUMBER = "94782897650"; // 078 289 7650
+  const INSTAGRAM = "haju__bliss";
 
   /* ---------- Products: edit this list to change the menu ---------- */
   // unit: what the price buys. best: best-selling rank (1 = top). choc: matches the Chocolate filter.
@@ -724,12 +726,14 @@ footer .logo small { color: inherit; opacity: .6; }
       $("#oHow").addEventListener("change", e => { $("#addrWrap").hidden = e.target.value === "Pickup"; });
       $("#orderForm").addEventListener("submit", e => e.preventDefault());
       foot.innerHTML = `<div class="subtotal"><span>Total</span><span>${fmt(total())}</span></div>
-        <button class="btn" type="button" data-place>${WHATSAPP_NUMBER ? "Send order on WhatsApp" : "Review order"}</button>
+        <button class="btn" type="button" data-place>Review order</button>
         <button class="linkish" type="button" data-back>Back to bag</button>`;
     } else {
       $("#cartTitle").textContent = "Send your order";
-      body.innerHTML = `<p style="margin:0 0 12px">Copy this message and send it to Haju Bliss on WhatsApp or Instagram. We'll reply to confirm your order and delivery.</p><pre class="summary" id="summary">${esc(orderText())}</pre>`;
-      foot.innerHTML = `<button class="btn" type="button" data-copy>Copy order</button><button class="linkish" type="button" data-edit>Edit details</button>`;
+      body.innerHTML = `<p style="margin:0 0 12px">Tap <b>Send on WhatsApp</b> and your order opens in a chat with Haju Bliss (078 289 7650), ready to send. We'll reply to confirm your order and delivery.</p><pre class="summary" id="summary">${esc(orderText())}</pre>
+        <p class="note" style="margin-top:12px">WhatsApp not opening? Copy the order and send it to 078 289 7650 or to @${INSTAGRAM} on Instagram.</p>`;
+      foot.innerHTML = `<a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText())}" target="_blank" rel="noopener">Send on WhatsApp</a>
+        <button class="btn ghost" type="button" data-copy>Copy order</button><button class="linkish" type="button" data-edit>Edit details</button>`;
     }
   }
   function readForm() {
@@ -749,7 +753,6 @@ footer .logo small { color: inherit; opacity: .6; }
     if (b.hasAttribute("data-edit")) { step = "details"; return renderCart(); }
     if (b.hasAttribute("data-place")) {
       const err = readForm(); if (err) { $("#oErr").textContent = err; return; }
-      if (WHATSAPP_NUMBER) { location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText())}`; return; }
       step = "send"; return renderCart();
     }
     if (b.hasAttribute("data-copy")) {
@@ -769,7 +772,7 @@ footer .logo small { color: inherit; opacity: .6; }
   let tt;
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 2600); }
 
-  const ANN = ["Baked fresh to order. Cakes need one day's notice.", "Best sellers: lava brownies and chocolate loaded cookies", "Cash on delivery available"];
+  const ANN = ["Baked fresh to order. Cakes need one day's notice.", "Order on WhatsApp: 078 289 7650", "Follow us on Instagram @haju__bliss", "Best sellers: lava brownies and chocolate loaded cookies", "Cash on delivery available"];
   let ai = 0;
   const showAnn = d => { ai = (ai + d + ANN.length) % ANN.length; $("#annText").textContent = ANN[ai]; };
   $("#annPrev").addEventListener("click", () => showAnn(-1));
