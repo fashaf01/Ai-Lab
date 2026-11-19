@@ -25,6 +25,9 @@
   --tint: #FADDE9;        /* logo pink: soft panels */
   --tint-ink: #4B2A1F;
   --shadow: 0 18px 50px rgba(60, 30, 20, .16);
+  --choc: #7A3B22;        /* chocolate word fill */
+  --choc-hi: #D98C5F;     /* chocolate gloss */
+  --steam: rgba(150, 110, 95, .6);
   --f-display: "Young Serif", "Iowan Old Style", Georgia, serif;
   --f-body: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --gutter-l: max(16px, env(safe-area-inset-left, 0px));
@@ -35,13 +38,13 @@
   :root:not([data-theme="light"]) {
     --ground: #17110E; --surface: #221915; --ink: #F5ECE6; --muted: #BFA89D; --line: #3A2D27;
     --cocoa: #F0C9A8; --cocoa-ink: #2A1A14; --berry: #F28CC0; --tint: #3A2330; --tint-ink: #F6E3D9;
-    --shadow: 0 18px 50px rgba(0,0,0,.5); color-scheme: dark;
+    --shadow: 0 18px 50px rgba(0,0,0,.5); --choc: #E2A67E; --choc-hi: #FFE3CC; --steam: rgba(150, 110, 95, .6); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --ground: #17110E; --surface: #221915; --ink: #F5ECE6; --muted: #BFA89D; --line: #3A2D27;
   --cocoa: #F0C9A8; --cocoa-ink: #2A1A14; --berry: #F28CC0; --tint: #3A2330; --tint-ink: #F6E3D9;
-  --shadow: 0 18px 50px rgba(0,0,0,.5); color-scheme: dark;
+  --shadow: 0 18px 50px rgba(0,0,0,.5); --choc: #E2A67E; --choc-hi: #FFE3CC; --steam: rgba(150, 110, 95, .6); color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -85,18 +88,19 @@ nav.main a:hover, nav.main a[aria-current="page"] { border-bottom-color: current
 .menu-btn { display: none; }
 
 /* Hero + spotlight */
-.crumbs { font-size: 13px; color: var(--muted); padding-block: 22px 0; }
+.crumbs { font-size: 13px; color: var(--muted); padding-block: 58px 0; }
 .crumbs a { text-decoration: none; }
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 36px; align-items: center; padding-block: 18px 40px; }
+.hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 36px; align-items: center; padding-block: 18px 40px; }
 .eyebrow { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--berry); font-weight: 500; }
 .hero h1 { font: 400 clamp(42px, 6.4vw, 80px)/1 var(--f-display); margin: 10px 0 16px; letter-spacing: -.02em; text-wrap: balance; }
 .hero p { margin: 0; color: var(--muted); max-width: 44ch; font-size: 16px; }
 .hero .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
 .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; background: var(--surface); }
 .spot { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.spot-card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; text-align: left; padding: 0; transition: transform .25s, box-shadow .25s; }
-.spot-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.spot-card .ph { background: #fff; aspect-ratio: 1; max-width: 100%; }
+.spot-card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; text-align: left; padding: 0; transition: transform .35s ease-out, box-shadow .25s, scale .25s; animation: bob 6s ease-in-out infinite; }
+.spot-card:nth-child(2) { animation-delay: -3s; }
+.spot-card:hover { box-shadow: var(--shadow); scale: 1.015; }
+.spot-card .ph { position: relative; background: #fff; aspect-ratio: 1; max-width: 100%; }
 .spot-card .ph img { width: 100%; height: 100%; object-fit: cover; }
 .spot-card .txt { padding: 14px 16px 18px; display: grid; gap: 4px; }
 .spot-card .txt b { font: 400 21px/1.15 var(--f-display); }
@@ -253,6 +257,94 @@ footer .logo small { color: inherit; opacity: .6; }
   padding: 12px 20px; border-radius: 999px; font-size: 14px; transition: transform .3s, visibility .3s; visibility: hidden; max-width: calc(100% - 32px); text-align: center; }
 .toast.on { transform: translate(-50%, 0); visibility: visible; }
 
+
+/* ---------- Hero animation ---------- */
+/* Chocolate drip hanging from the header */
+.drip { position: relative; height: 0; z-index: 4; pointer-events: none; }
+.drip .band { position: absolute; left: 0; right: 0; top: 0; height: 9px; background: var(--cocoa); }
+.drip i { position: absolute; top: 4px; width: var(--w); height: var(--h); margin-left: calc(var(--w) / -2); background: var(--cocoa);
+  border-radius: 0 0 999px 999px; animation: drip-grow 1.8s cubic-bezier(.3, .8, .3, 1) var(--d) both; }
+.drip i::after { content: ""; position: absolute; left: 50%; top: calc(100% - var(--w) * .5); width: calc(var(--w) * .62); aspect-ratio: 1; translate: -50% 0;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: var(--cocoa); opacity: 0; animation: drop-fall var(--fall) ease-in calc(var(--d) + 2s) infinite; }
+.drip i.still::after { display: none; }
+@keyframes drip-grow { from { height: 0; } }
+@keyframes drop-fall {
+  0%, 55% { transform: translateY(0) scale(0); opacity: 0; }
+  62% { transform: translateY(0) scale(1); opacity: 1; }
+  72% { transform: translateY(4px) scale(.9, 1.15); opacity: 1; }
+  92% { transform: translateY(64px) scale(.8, 1.2); opacity: 0; }
+  100% { transform: translateY(64px); opacity: 0; }
+}
+
+/* Floating chips, sprinkles and cashews */
+.bits { position: absolute; inset: -30px 0 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.bit { position: absolute; transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+  transform: translate(calc(var(--mx, 0) * var(--z) * 22px), calc(var(--my, 0) * var(--z) * 22px)); }
+.bit i { display: block; rotate: var(--r); animation: float var(--dur) ease-in-out var(--del) infinite alternate; opacity: var(--o); }
+.bit.b-chip i { width: var(--s); height: calc(var(--s) * 1.15); background: var(--choc); border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%; }
+.bit.b-sprinkle i { width: calc(var(--s) * .38); height: var(--s); border-radius: 99px; background: var(--c); }
+.bit.b-cashew i { width: calc(var(--s) * 1.5); height: calc(var(--s) * 1.5); border-radius: 50%; border: calc(var(--s) * .42) solid #E2BC80; border-right-color: transparent; border-bottom-color: transparent; }
+@keyframes float { from { translate: 0 -10px; } to { translate: 6px 12px; rotate: calc(var(--r) + 40deg); } }
+
+/* Headline */
+.hl .w { display: inline-block; animation: rise .8s cubic-bezier(.2, .8, .2, 1) both; }
+.hl .w1 { animation-delay: .1s; transform-origin: 50% 90%; }
+.hl .w2 { animation-delay: .25s; }
+.hl .w3 { animation-delay: .4s; }
+@keyframes rise { from { opacity: 0; transform: translateY(.45em) rotate(2deg); } }
+.hl .w1 { animation: rise .8s cubic-bezier(.2, .8, .2, 1) .1s both, jelly 1s ease 1.05s forwards; cursor: default; }
+.hl .w1:hover { animation: jelly 1s ease; }
+@keyframes jelly {
+  0% { transform: scale(1, 1); } 25% { transform: scale(1.14, .84); } 45% { transform: scale(.9, 1.1); }
+  65% { transform: scale(1.05, .95); } 82% { transform: scale(.98, 1.02); } 100% { transform: scale(1, 1); }
+}
+.choc { position: relative; display: inline-block; color: var(--choc);
+  background: linear-gradient(100deg, var(--choc) 0 38%, var(--choc-hi) 50%, var(--choc) 62% 100%); background-size: 260% 100%; background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gloss 5s ease-in-out 1.4s infinite; }
+@keyframes gloss { 0% { background-position: 100% 0; } 45%, 100% { background-position: 0 0; } }
+.choc::before, .choc::after { content: ""; position: absolute; top: 88%; width: .11em; height: var(--len); background: var(--choc); border-radius: 0 0 99px 99px;
+  transform-origin: top; animation: word-drip 1.6s cubic-bezier(.3, .8, .3, 1) both, word-drip-sway 4s ease-in-out 3s infinite alternate; }
+.choc::before { left: 26%; --len: .32em; animation-delay: 1.1s, 3s; }
+.choc::after { left: 74%; --len: .22em; width: .09em; animation-delay: 1.35s, 3.5s; }
+@keyframes word-drip { from { transform: scaleY(0); } }
+@keyframes word-drip-sway { to { transform: scaleY(1.25); } }
+.fast { position: relative; display: inline-block; animation: zoom .7s cubic-bezier(.2, .9, .25, 1.25) .55s both; }
+.fast::before { content: ""; position: absolute; right: 100%; top: 34%; width: .9em; height: .36em; margin-right: .08em; opacity: 0;
+  background: repeating-linear-gradient(to bottom, var(--berry) 0 .045em, transparent .045em .155em); border-radius: 99px; animation: lines .9s ease-out .6s both; }
+@keyframes zoom { from { opacity: 0; transform: translateX(1.4em) skewX(-20deg); } 70% { opacity: 1; transform: translateX(-.05em) skewX(6deg); } }
+@keyframes lines { 0% { opacity: 0; transform: translateX(.8em) scaleX(.2); } 35% { opacity: .9; } 100% { opacity: 0; transform: translateX(-.15em) scaleX(1); } }
+
+/* Supporting copy eases in after the headline */
+.hero .lede, .hero .meta { animation: rise .8s cubic-bezier(.2, .8, .2, 1) both; }
+.hero .lede { animation-delay: .6s; }
+.hero .meta { animation-delay: .72s; }
+.hero .meta + .meta { animation-delay: .84s; }
+.shine { position: relative; overflow: hidden; }
+.shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .45) 50%, transparent 65%);
+  transform: translateX(-120%); animation: shine 4.5s ease-in-out 2s infinite; }
+@keyframes shine { 0% { transform: translateX(-120%); } 30%, 100% { transform: translateX(120%); } }
+
+/* Spotlight: bob, steam, stamp */
+@keyframes bob { 50% { translate: 0 -9px; } }
+.spot-wrap { position: relative; }
+.spot-card { animation: bob 6s ease-in-out infinite, card-in .9s cubic-bezier(.2, .8, .2, 1) .35s backwards; }
+.spot-card:nth-child(2) { animation: bob 6s ease-in-out -3s infinite, card-in .9s cubic-bezier(.2, .8, .2, 1) .5s backwards; }
+@keyframes card-in { from { opacity: 0; translate: 0 40px; rotate: -3deg; } }
+.steam { position: absolute; left: 50%; top: 0; width: 24%; translate: -50% 0; z-index: 2; fill: none; stroke: var(--steam); stroke-width: 3.2; stroke-linecap: round; pointer-events: none; }
+.steam path { stroke-dasharray: 34 100; stroke-dashoffset: 34; animation: steam 3.4s linear infinite; }
+.steam path:nth-child(2) { animation-delay: -1.1s; }
+.steam path:nth-child(3) { animation-delay: -2.3s; }
+@keyframes steam { 0% { stroke-dashoffset: 34; opacity: 0; } 25% { opacity: 1; } 100% { stroke-dashoffset: -100; opacity: 0; } }
+.stamp { position: absolute; top: -40px; right: -16px; width: 118px; aspect-ratio: 1; z-index: 3; pointer-events: none;
+  animation: stamp-in .9s cubic-bezier(.2, 1.4, .3, 1) 1s backwards; filter: drop-shadow(0 8px 18px rgba(60, 30, 20, .18)); }
+.stamp svg { width: 100%; height: 100%; overflow: visible; }
+.stamp .disc { fill: var(--surface); stroke: var(--berry); stroke-width: 1.4; stroke-dasharray: 2.5 3.5; }
+.stamp .spin { transform-origin: 60px 60px; animation: spin 18s linear infinite; }
+.stamp text { font: 600 9.6px var(--f-body); letter-spacing: .14em; fill: var(--ink); }
+.stamp img { position: absolute; left: 50%; top: 50%; width: 58%; translate: -50% -50%; border-radius: 50%; }
+@keyframes stamp-in { from { scale: 0; rotate: -120deg; opacity: 0; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* Responsive */
 @media (max-width: 1000px) {
   nav.main { display: none; }
@@ -275,6 +367,9 @@ footer .logo small { color: inherit; opacity: .6; }
   .qv-media { aspect-ratio: 4/3; }
 }
 @media (max-width: 520px) {
+  .stamp { width: 88px; top: -30px; right: -6px; }
+  .bits { opacity: .45; }
+  .crumbs { padding-top: 50px; }
   header.site .wrap { min-height: 64px; gap: 8px; }
   .logo b { font-size: 22px; }
   .logo .mark { width: 42px; height: 42px; }
@@ -291,6 +386,7 @@ footer .logo small { color: inherit; opacity: .6; }
   .form .row { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .steam { display: none; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 </style>
@@ -337,21 +433,32 @@ footer .logo small { color: inherit; opacity: .6; }
 </header>
 
 <main id="main">
+  <div class="drip" id="drip" aria-hidden="true"><div class="band"></div></div>
   <div class="wrap">
     <div class="crumbs"><a href="#">Home</a> / Best Sellers</div>
-    <section class="hero">
+    <section class="hero" id="hero">
+      <div class="bits" id="bits" aria-hidden="true"></div>
       <div>
         <span class="eyebrow">Our best sellers</span>
-        <h1>Gooey, chocolatey, gone fast.</h1>
-        <p>Everyone's favourites from the Haju Bliss kitchen: molten lava brownies and cookies loaded with chocolate. Baked fresh to order, along with our cakes and traditional sweets.</p>
+        <h1 class="hl"><span class="w w1">Gooey,</span> <span class="w w2"><span class="choc">chocolatey,</span></span> <span class="w w3">gone <span class="fast">fast.</span></span></h1>
+        <p class="lede">Everyone's favourites from the Haju Bliss kitchen: molten lava brownies and cookies loaded with chocolate. Baked fresh to order, along with our cakes and traditional sweets.</p>
         <div class="meta">
           <span class="chip">Baked to order</span>
           <span class="chip">Homemade in Negombo</span>
           <span class="chip">Cash on delivery</span>
         </div>
-        <div class="meta"><a class="btn" href="https://wa.me/94782897650" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn ghost" href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">@haju__bliss</a></div>
+        <div class="meta"><a class="btn shine" href="https://wa.me/94782897650" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn ghost" href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">@haju__bliss</a></div>
       </div>
-      <div class="spot" id="spot"></div>
+      <div class="spot-wrap">
+        <div class="spot" id="spot"></div>
+        <div class="stamp" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><defs><path id="ring" d="M60 60m-47 0a47 47 0 1 1 94 0a47 47 0 1 1-94 0"/></defs>
+            <circle class="disc" cx="60" cy="60" r="58"/>
+            <g class="spin"><text><textPath href="#ring" textLength="292" lengthAdjust="spacing">FRESHLY BAKED · HOMEMADE · NEGOMBO ·</textPath></text></g>
+          </svg>
+          <img src="images/logo.png" alt="">
+        </div>
+      </div>
     </section>
 
     <div class="section-title">
@@ -516,7 +623,7 @@ footer .logo small { color: inherit; opacity: .6; }
   $("#spot").innerHTML = PRODUCTS.filter(isBest).sort((a, b) => a.best - b.best).map(p => `
     <button class="spot-card" type="button" data-view="${p.id}">
       <span class="no">No. ${p.best} best seller</span>
-      <div class="ph">${img(p, 'loading="eager"')}</div>
+      <div class="ph">${p.best === 1 ? `<svg class="steam" viewBox="0 0 60 80" aria-hidden="true"><path pathLength="100" d="M18 78c-9-12 9-18 0-30s9-18 0-30"/><path pathLength="100" d="M30 74c-9-12 9-18 0-30s9-18 0-30"/><path pathLength="100" d="M42 78c-9-12 9-18 0-30s9-18 0-30"/></svg>` : ""}${img(p, 'loading="eager"')}</div>
       <div class="txt"><b>${esc(p.name)}</b><span>${fmt(p.price)} ${p.unit}</span></div>
     </button>`).join("");
   $("#spot").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) openQV(+b.dataset.view); });
@@ -792,6 +899,54 @@ footer .logo small { color: inherit; opacity: .6; }
     root.dataset.theme = dark ? "light" : "dark";
   });
   $("#yr").textContent = new Date().getFullYear();
+
+
+  /* ---------- Hero animation ---------- */
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let seed = 11;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  // Chocolate drips under the header
+  let dripW = 0;
+  function makeDrips() {
+    if (innerWidth === dripW) return; dripW = innerWidth; seed = 11;
+    const n = Math.max(6, Math.round(innerWidth / 64));
+    let html = '<div class="band"></div>';
+    for (let i = 0; i < n; i++) {
+      const left = (i + .25 + rnd() * .5) / n * 100, w = 10 + rnd() * 14, h = 12 + rnd() * rnd() * 46;
+      const falls = rnd() < .3;
+      html += `<i style="left:${left.toFixed(2)}%;--w:${w.toFixed(1)}px;--h:${h.toFixed(1)}px;--d:${(rnd() * .6).toFixed(2)}s;--fall:${falls ? (4 + rnd() * 4).toFixed(1) + "s" : "0s"}"></i>`;
+    }
+    $("#drip").innerHTML = html;
+    $("#drip").querySelectorAll("i").forEach(i => { if (i.style.getPropertyValue("--fall") === "0s") i.classList.add("still"); });
+  }
+  makeDrips();
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(makeDrips, 200); });
+  // Floating chips, sprinkles, cashews
+  seed = 29;
+  const SPRINKLES = ["#E86FA8", "#F4C95D", "#B5207A", "#8FD0C3"];
+  $("#bits").innerHTML = Array.from({ length: 18 }, (_, i) => {
+    const kind = ["b-chip", "b-chip", "b-sprinkle", "b-sprinkle", "b-sprinkle", "b-cashew"][i % 6];
+    const s = kind === "b-chip" ? 9 + rnd() * 9 : kind === "b-cashew" ? 8 + rnd() * 5 : 12 + rnd() * 8;
+    return `<span class="bit ${kind}" style="left:${(rnd() * 96).toFixed(1)}%;top:${(4 + rnd() * 88).toFixed(1)}%;--z:${(.3 + rnd() * .9).toFixed(2)}">` +
+      `<i style="--s:${s.toFixed(1)}px;--r:${Math.round(rnd() * 360)}deg;--dur:${(5 + rnd() * 6).toFixed(1)}s;--del:${(-rnd() * 8).toFixed(1)}s;--o:${(.45 + rnd() * .4).toFixed(2)};--c:${SPRINKLES[i % 4]}"></i></span>`;
+  }).join("");
+  // Pointer parallax and card tilt (mouse and trackpad only)
+  if (!calm && matchMedia("(pointer: fine)").matches) {
+    const hero = $("#hero");
+    hero.addEventListener("pointermove", e => {
+      const r = hero.getBoundingClientRect();
+      hero.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3));
+      hero.style.setProperty("--my", ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3));
+    });
+    hero.addEventListener("pointerleave", () => { hero.style.setProperty("--mx", 0); hero.style.setProperty("--my", 0); });
+    document.querySelectorAll(".spot-card").forEach(card => {
+      card.addEventListener("pointermove", e => {
+        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = `perspective(900px) rotateX(${(-y * 9).toFixed(2)}deg) rotateY(${(x * 11).toFixed(2)}deg)`;
+      });
+      card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+    });
+  }
 
   refresh(); saveCart();
 })();
