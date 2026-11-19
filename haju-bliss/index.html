@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Haju Bliss Bakery</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Haju Bliss — homemade lava brownies, chocolate loaded cookies, cakes and sweets.">
+<meta name="description" content="Haju Bliss — homemade lava brownies, chocolate loaded cookies, cakes and sweets in Negombo, Sri Lanka.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Outfit:wght@300;400;500;600&display=swap">
@@ -313,7 +313,7 @@ footer .logo small { color: inherit; opacity: .6; }
         <a href="#shop" data-nav="Sweets">Sweets</a>
       </nav>
     </div>
-    <a class="logo" href="#" aria-label="Haju Bliss home"><b>Haju <em>Bliss</em></b><small>Homemade bakes</small></a>
+    <a class="logo" href="#" aria-label="Haju Bliss home"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></a>
     <div class="tools">
       <button class="icon-btn" type="button" id="searchBtn" aria-label="Search">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -339,7 +339,7 @@ footer .logo small { color: inherit; opacity: .6; }
         <p>Everyone's favourites from the Haju Bliss kitchen: molten lava brownies and cookies loaded with chocolate. Baked fresh to order, along with our cakes and traditional sweets.</p>
         <div class="meta">
           <span class="chip">Baked to order</span>
-          <span class="chip">Homemade</span>
+          <span class="chip">Homemade in Negombo</span>
           <span class="chip">Cash on delivery</span>
         </div>
         <div class="meta"><a class="btn" href="https://wa.me/94782897650" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn ghost" href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">@haju__bliss</a></div>
@@ -411,11 +411,11 @@ footer .logo small { color: inherit; opacity: .6; }
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="logo"><b>Haju <em>Bliss</em></b><small>Homemade bakes</small></div>
-        <p style="max-width:40ch;opacity:.8;font-size:14px;margin:16px 0 0">Brownies, cookies, cakes and traditional sweets, baked fresh at home. Place your order here and we'll confirm it by message.</p>
+        <div class="logo"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></div>
+        <p style="max-width:40ch;opacity:.8;font-size:14px;margin:16px 0 0">Brownies, cookies, cakes and traditional sweets, baked fresh at home in Negombo, Sri Lanka. Place your order here and we'll confirm it by message.</p>
       </div>
       <div><h4>Shop</h4><ul><li><a href="#shop" data-nav="">Best Sellers</a></li><li><a href="#shop" data-nav="Brownies">Brownies</a></li><li><a href="#shop" data-nav="Cookies">Cookies</a></li><li><a href="#shop" data-nav="Cakes">Cakes</a></li><li><a href="#shop" data-nav="Sweets">Sweets</a></li></ul></div>
-      <div><h4>Order &amp; contact</h4><ul><li><a href="https://wa.me/94782897650" target="_blank" rel="noopener">WhatsApp: <span style="user-select:all">078 289 7650</span></a></li><li><a href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">Instagram: @haju__bliss</a></li></ul></div>
+      <div><h4>Order &amp; contact</h4><ul><li>Negombo, Sri Lanka</li><li><a href="https://wa.me/94782897650" target="_blank" rel="noopener">WhatsApp: <span style="user-select:all">078 289 7650</span></a></li><li><a href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">Instagram: @haju__bliss</a></li></ul></div>
     </div>
     <div class="foot-base">
       <span>© <span id="yr">2026</span> Haju Bliss. Prices in Sri Lankan Rupees.</span>
@@ -772,7 +772,7 @@ footer .logo small { color: inherit; opacity: .6; }
   let tt;
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 2600); }
 
-  const ANN = ["Baked fresh to order. Cakes need one day's notice.", "Order on WhatsApp: 078 289 7650", "Follow us on Instagram @haju__bliss", "Best sellers: lava brownies and chocolate loaded cookies", "Cash on delivery available"];
+  const ANN = ["Baked fresh to order. Cakes need one day's notice.", "Order on WhatsApp: 078 289 7650", "Follow us on Instagram @haju__bliss", "Best sellers: lava brownies and chocolate loaded cookies", "Cash on delivery available", "Baking fresh in Negombo, Sri Lanka"];
   let ai = 0;
   const showAnn = d => { ai = (ai + d + ANN.length) % ANN.length; $("#annText").textContent = ANN[ai]; };
   $("#annPrev").addEventListener("click", () => showAnn(-1));
