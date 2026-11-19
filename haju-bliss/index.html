@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haju Bliss Best Sellers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Haju Bliss — easy everyday clothing made in Sri Lanka. Shop our best sellers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Outfit:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: classic boutique collection page — announcement strip, sticky header, filter rail + product grid, drawer cart. */
+:root {
+  --ground: #F6F5F1;      /* page */
+  --surface: #FFFFFF;     /* cards, drawers */
+  --ink: #1B2421;         /* text */
+  --muted: #5F6B66;       /* secondary text */
+  --line: #DCDFD8;        /* hairlines */
+  --leaf: #23574A;        /* brand accent: actions */
+  --leaf-ink: #FFFFFF;
+  --lilac: #E6DEF0;       /* announcement, soft tint */
+  --lilac-ink: #2F2440;
+  --sale: #C23B5E;        /* sale price + badge */
+  --tile: #ECEAE4;        /* product image ground */
+  --shadow: 0 18px 50px rgba(20, 30, 26, .18);
+  --f-display: "Italiana", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #121614; --surface: #1A201D; --ink: #ECEFEA; --muted: #A3ADA8; --line: #2D3531;
+    --leaf: #7FC6B0; --leaf-ink: #0E1A16; --lilac: #2C2638; --lilac-ink: #E6DEF0; --sale: #F2829E;
+    --tile: #222925; --shadow: 0 18px 50px rgba(0,0,0,.5); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #121614; --surface: #1A201D; --ink: #ECEFEA; --muted: #A3ADA8; --line: #2D3531;
+  --leaf: #7FC6B0; --leaf-ink: #0E1A16; --lilac: #2C2638; --lilac-ink: #E6DEF0; --sale: #F2829E;
+  --tile: #222925; --shadow: 0 18px 50px rgba(0,0,0,.5); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 400 15px/1.55 var(--f-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--surface); }
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--leaf); outline-offset: 2px; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--leaf); color: var(--leaf-ink); padding: 8px 14px; z-index: 100; }
+.skip:focus { left: 16px; }
+
+/* Announcement */
+.announce { background: var(--lilac); color: var(--lilac-ink); font-size: 13px; letter-spacing: .04em; }
+.announce .wrap { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 38px; padding-block: 6px; }
+.announce button { background: none; border: 0; padding: 4px 8px; line-height: 1; font-size: 16px; opacity: .7; }
+.announce p { margin: 0; text-align: center; min-width: 0; }
+
+/* Header */
+header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--surface); border-bottom: 1px solid var(--line); }
+header.site .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; min-height: 72px; }
+.logo { text-decoration: none; text-align: center; line-height: 1; }
+.logo b { display: block; font: 400 34px/1 var(--f-display); letter-spacing: .02em; }
+.logo small { display: block; font-size: 10px; letter-spacing: .38em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+nav.main { display: flex; gap: 22px; flex-wrap: wrap; }
+nav.main a { text-decoration: none; font-size: 14px; letter-spacing: .03em; padding: 6px 0; border-bottom: 1px solid transparent; }
+nav.main a:hover, nav.main a[aria-current="page"] { border-bottom-color: currentColor; }
+nav.main a.sale-link { color: var(--sale); }
+.tools { display: flex; justify-content: flex-end; gap: 4px; }
+.icon-btn { position: relative; background: none; border: 0; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; }
+.icon-btn:hover { background: var(--tile); }
+.icon-btn svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.count[hidden] { display: none; }
+.count { position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; border-radius: 9px; background: var(--leaf); color: var(--leaf-ink); font-size: 11px; font-weight: 600; display: grid; place-items: center; padding: 0 5px; }
+.menu-btn { display: none; }
+
+/* Collection hero */
+.crumbs { font-size: 13px; color: var(--muted); padding-block: 22px 0; }
+.crumbs a { text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: end; padding-block: 18px 30px; }
+.hero h1 { font: 400 clamp(44px, 7vw, 88px)/.95 var(--f-display); margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.hero p { margin: 0; color: var(--muted); max-width: 46ch; font-size: 16px; }
+.hero .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; background: var(--surface); }
+
+/* Toolbar */
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-block: 1px solid var(--line); padding-block: 12px; }
+.toolbar .left, .toolbar .right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.btn-line { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 14px; }
+.btn-line:hover { border-color: var(--ink); }
+.btn-line svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+.result-count { font-size: 14px; color: var(--muted); }
+.sort { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.sort select { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 34px 8px 14px; appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
+.cols { display: flex; gap: 4px; }
+.cols button { width: 34px; height: 34px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; display: grid; place-items: center; }
+.cols button[aria-pressed="true"] { border-color: var(--ink); }
+.cols svg { width: 16px; height: 16px; fill: currentColor; }
+.active-filters { display: flex; gap: 8px; flex-wrap: wrap; padding-block: 12px 0; }
+.active-filters:empty { display: none; }
+.pill { display: inline-flex; align-items: center; gap: 6px; background: var(--tile); border: 0; border-radius: 999px; padding: 6px 12px; font-size: 13px; }
+.pill span { font-size: 15px; line-height: 1; }
+.linkish { background: none; border: 0; text-decoration: underline; font-size: 13px; padding: 6px 4px; }
+
+/* Shop layout */
+.shop { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 36px; padding-block: 24px 64px; }
+.shop.no-rail { grid-template-columns: minmax(0, 1fr); }
+.shop.no-rail .rail { display: none; }
+.rail { align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 92px); max-height: calc(100vh - 110px); overflow: auto; padding-right: 6px; }
+.rail-head { display: none; }
+details.facet { border-bottom: 1px solid var(--line); padding-block: 14px; }
+details.facet summary { list-style: none; display: flex; justify-content: space-between; align-items: center; font-weight: 500; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+details.facet summary::-webkit-details-marker { display: none; }
+details.facet summary::after { content: "+"; font-weight: 300; font-size: 20px; line-height: 1; }
+details.facet[open] summary::after { content: "–"; }
+.facet .opts { display: grid; gap: 8px; padding-top: 12px; }
+.check { display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; }
+.check input { width: 17px; height: 17px; accent-color: var(--leaf); }
+.check em { margin-left: auto; font-style: normal; color: var(--muted); font-size: 12px; }
+.size-opts { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 12px; }
+.size-opts button { min-width: 44px; height: 36px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; font-size: 13px; }
+.size-opts button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.swatch-opts { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 12px; }
+.swatch-opts button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); box-shadow: inset 0 0 0 3px var(--surface); }
+.swatch-opts button[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
+.range { padding-top: 12px; display: grid; gap: 8px; font-size: 14px; }
+.range input { width: 100%; accent-color: var(--leaf); }
+.range output { font-variant-numeric: tabular-nums; }
+
+/* Grid */
+.grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 32px 20px; }
+.card { position: relative; display: flex; flex-direction: column; gap: 10px; }
+.media { position: relative; aspect-ratio: 3 / 4; max-width: 100%; border-radius: 6px; overflow: hidden; background: var(--tile); }
+.media .img { position: absolute; inset: 0; transition: opacity .45s ease, transform .8s ease; }
+.media .img svg { width: 100%; height: 100%; }
+.media .img.alt { opacity: 0; }
+.card:hover .media .img.alt { opacity: 1; }
+.card:hover .media .img.main { transform: scale(1.03); }
+.badges { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; z-index: 2; }
+.badge { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: 4px 9px; border-radius: 3px; background: var(--surface); color: var(--ink); }
+.badge.sale { background: var(--sale); color: #fff; }
+.badge.out { background: var(--ink); color: var(--surface); }
+.rank { position: absolute; top: 10px; right: 12px; z-index: 2; font: 400 30px/1 var(--f-display); color: var(--ink); opacity: .85; }
+.quick { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 3; background: var(--surface); border-radius: 6px; padding: 10px; box-shadow: var(--shadow);
+  transform: translateY(calc(100% + 14px)); transition: transform .3s ease; }
+.card:hover .quick, .card:focus-within .quick { transform: none; }
+.quick p { margin: 0 0 8px; font-size: 12px; color: var(--muted); text-align: center; letter-spacing: .05em; text-transform: uppercase; }
+.quick .sizes { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.quick .sizes button { min-width: 38px; height: 32px; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; font-size: 13px; }
+.quick .sizes button:hover:not(:disabled) { background: var(--ink); color: var(--surface); }
+.quick .sizes button:disabled { opacity: .35; text-decoration: line-through; cursor: not-allowed; }
+.card h3 { margin: 0; font-weight: 400; font-size: 15px; line-height: 1.35; }
+.card h3 button { background: none; border: 0; padding: 0; text-align: left; }
+.card h3 button:hover { text-decoration: underline; }
+.price { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-variant-numeric: tabular-nums; font-size: 15px; }
+.price s { color: var(--muted); font-size: 13px; }
+.price .now.on-sale { color: var(--sale); font-weight: 500; }
+.swatches { display: flex; gap: 6px; align-items: center; }
+.swatches button { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--line); padding: 0; }
+.swatches button[aria-pressed="true"] { outline: 1.5px solid var(--ink); outline-offset: 2px; }
+.stars { font-size: 12px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
+.stars i { font-style: normal; color: var(--ink); letter-spacing: 1px; }
+.empty { grid-column: 1 / -1; text-align: center; padding: 60px 16px; border: 1px dashed var(--line); border-radius: 8px; }
+.empty h3 { font: 400 32px/1.1 var(--f-display); margin: 0 0 8px; }
+.more { display: grid; justify-items: center; gap: 12px; margin-top: 44px; }
+.more .bar { width: 220px; max-width: 100%; height: 2px; background: var(--line); }
+.more .bar i { display: block; height: 100%; background: var(--ink); }
+.more small { color: var(--muted); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--leaf); color: var(--leaf-ink); border: 0; border-radius: 999px; padding: 13px 28px; font-size: 14px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Promise strip */
+.promises { background: var(--surface); border-top: 1px solid var(--line); }
+.promises .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding-block: 36px; }
+.promise { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: start; }
+.promise svg { width: 30px; height: 30px; fill: none; stroke: var(--leaf); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.promise b { display: block; font-weight: 500; font-size: 14px; }
+.promise span { font-size: 13px; color: var(--muted); }
+
+/* Footer */
+footer.site { background: var(--ink); color: var(--ground); }
+footer.site .wrap { padding-block: 56px 28px; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 36px; }
+footer h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin: 0 0 14px; opacity: .7; }
+footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; }
+footer ul a { text-decoration: none; opacity: .9; }
+footer ul a:hover { text-decoration: underline; }
+footer .logo { text-align: left; }
+footer .logo small { color: inherit; opacity: .6; }
+.news { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+.news input { flex: 1 1 200px; min-width: 0; background: transparent; border: 1px solid color-mix(in srgb, var(--ground) 40%, transparent); border-radius: 999px; padding: 11px 16px; color: var(--ground); }
+.news input::placeholder { color: color-mix(in srgb, var(--ground) 60%, transparent); }
+.news button { background: var(--ground); color: var(--ink); border: 0; border-radius: 999px; padding: 11px 20px; font-weight: 500; }
+.news-msg { font-size: 13px; min-height: 20px; margin-top: 8px; opacity: .85; }
+.foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 44px; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--ground) 18%, transparent); font-size: 13px; opacity: .75; }
+.pay { display: flex; gap: 8px; flex-wrap: wrap; }
+.pay span { border: 1px solid color-mix(in srgb, var(--ground) 30%, transparent); border-radius: 4px; padding: 2px 8px; font-size: 12px; }
+
+/* Overlays */
+.scrim { position: fixed; inset: 0; background: rgba(10, 14, 12, .45); z-index: 70; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; top: 0; bottom: 0; right: 0; width: min(420px, 100%); background: var(--surface); z-index: 80; display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform .35s ease; box-shadow: var(--shadow);
+  padding: calc(env(safe-area-inset-top, 0px) + 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) 0; }
+.drawer:not(.on) { visibility: hidden; transition: transform .35s ease, visibility 0s .35s; }
+.drawer.on { transform: none; }
+.drawer.left { right: auto; left: 0; transform: translateX(-100%); padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+.drawer.left.on { transform: none; }
+.drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.drawer-head h2 { margin: 0; font: 400 28px/1 var(--f-display); }
+.drawer-body { flex: 1; overflow: auto; padding: 16px 20px; }
+.drawer-foot { border-top: 1px solid var(--line); padding: 18px 20px; display: grid; gap: 12px; }
+.ship { font-size: 13px; display: grid; gap: 8px; padding: 14px 20px; background: var(--lilac); color: var(--lilac-ink); }
+.ship .bar { height: 4px; background: color-mix(in srgb, var(--lilac-ink) 15%, transparent); border-radius: 2px; overflow: hidden; }
+.ship .bar i { display: block; height: 100%; background: var(--leaf); transition: width .4s; }
+.line-item { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 14px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.line-item .thumb { aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; background: var(--tile); }
+.line-item h4 { margin: 0; font-weight: 400; font-size: 14px; }
+.line-item small { color: var(--muted); display: block; }
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; margin-top: 8px; }
+.qty button { width: 30px; height: 30px; background: none; border: 0; }
+.qty span { min-width: 22px; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+.line-item .end { text-align: right; display: grid; align-content: space-between; justify-items: end; font-variant-numeric: tabular-nums; font-size: 14px; }
+.subtotal { display: flex; justify-content: space-between; font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.note { font-size: 12px; color: var(--muted); margin: 0; }
+.cart-empty { text-align: center; padding: 48px 8px; color: var(--muted); display: grid; gap: 16px; justify-items: center; }
+
+.modal { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 16px; pointer-events: none; }
+.modal .box { pointer-events: auto; background: var(--surface); width: min(900px, 100%); max-height: calc(100vh - 32px); overflow: auto; border-radius: 10px; box-shadow: var(--shadow);
+  display: grid; grid-template-columns: 1fr 1fr; position: relative; opacity: 0; transform: translateY(12px); transition: .3s; }
+.modal.on .box { opacity: 1; transform: none; }
+.modal:not(.on) { visibility: hidden; }
+.modal .close { position: absolute; top: 10px; right: 10px; z-index: 3; background: var(--surface); }
+.qv-media { background: var(--tile); aspect-ratio: 3/4; max-width: 100%; }
+.qv-media svg { width: 100%; height: 100%; }
+.qv-info { padding: 32px 28px; display: grid; gap: 14px; align-content: start; }
+.qv-info h2 { margin: 0; font: 400 34px/1.05 var(--f-display); text-wrap: balance; }
+.qv-info .price { font-size: 18px; }
+.qv-info p { margin: 0; color: var(--muted); }
+.qv-info label.lbl { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+.search-panel { position: fixed; inset: 0 0 auto; z-index: 85; background: var(--surface); box-shadow: var(--shadow); transform: translateY(-105%); transition: transform .3s;
+  padding-top: env(safe-area-inset-top, 0px); }
+.search-panel:not(.on) { visibility: hidden; transition: transform .3s, visibility 0s .3s; }
+.search-panel.on { transform: none; }
+.search-panel .wrap { padding-block: 20px; display: grid; gap: 14px; }
+.search-row { display: flex; gap: 10px; align-items: center; }
+.search-row input { flex: 1; min-width: 0; border: 0; border-bottom: 1px solid var(--ink); background: transparent; font-size: 22px; padding: 10px 0; }
+.search-row input:focus { outline: none; }
+.results { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; max-height: 60vh; overflow: auto; }
+.results button { background: none; border: 0; padding: 0; text-align: left; display: grid; gap: 6px; font-size: 13px; }
+.results .thumb { aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; background: var(--tile); }
+
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translate(-50%, 140%); z-index: 95; background: var(--ink); color: var(--surface);
+  padding: 12px 20px; border-radius: 999px; font-size: 14px; transition: transform .3s, visibility .3s; visibility: hidden; max-width: calc(100% - 32px); text-align: center; }
+.toast.on { transform: translate(-50%, 0); visibility: visible; }
+
+/* Responsive */
+@media (max-width: 1080px) {
+  nav.main { display: none; }
+  .menu-btn { display: grid; }
+  .grid { --cols: 3 !important; }
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 12px; }
+  .shop { grid-template-columns: minmax(0, 1fr); }
+  .rail { position: fixed; inset: 0 auto 0 0; width: min(340px, 88%); max-height: none; background: var(--surface); z-index: 80; padding: env(safe-area-inset-top, 0px) 20px 20px max(20px, env(safe-area-inset-left, 0px));
+    transform: translateX(-100%); transition: transform .35s ease, visibility .35s; box-shadow: var(--shadow); visibility: hidden; }
+  .rail.on { transform: none; visibility: visible; }
+  .shop.no-rail .rail { display: block; }
+  .rail-head { display: flex; justify-content: space-between; align-items: center; padding-block: 16px 6px; }
+  .rail-head h2 { margin: 0; font: 400 28px/1 var(--f-display); }
+  .grid { --cols: 2 !important; gap: 26px 14px; }
+  .cols { display: none; }
+  .promises .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-grid > :first-child { grid-column: 1 / -1; }
+  .modal .box { grid-template-columns: 1fr; }
+  .qv-media { aspect-ratio: 4/3; }
+  .quick { display: none; }
+}
+@media (max-width: 520px) {
+  header.site .wrap { min-height: 62px; gap: 8px; }
+  .logo b { font-size: 27px; }
+  .logo small { letter-spacing: .28em; }
+  .tools .hide-sm { display: none; }
+  .promises .wrap { grid-template-columns: 1fr; }
+  .toolbar .sort span { display: none; }
+  .rank { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#products">Skip to products</a>
+
+<div class="announce" role="region" aria-label="Announcements">
+  <div class="wrap">
+    <button type="button" id="annPrev" aria-label="Previous announcement">‹</button>
+    <p id="annText" aria-live="polite">Free island-wide delivery on orders over Rs. 10,000</p>
+    <button type="button" id="annNext" aria-label="Next announcement">›</button>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <div style="display:flex;align-items:center;gap:8px;min-width:0">
+      <button class="icon-btn menu-btn" type="button" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <nav class="main" aria-label="Main">
+        <a href="#">New In</a>
+        <a href="#" aria-current="page">Best Sellers</a>
+        <a href="#">Women</a>
+        <a href="#">Men</a>
+        <a href="#">Accessories</a>
+        <a href="#" class="sale-link">Sale</a>
+      </nav>
+    </div>
+    <a class="logo" href="#" aria-label="Haju Bliss home"><b>Haju Bliss</b><small>Colombo · Est. 2024</small></a>
+    <div class="tools">
+      <button class="icon-btn" type="button" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn hide-sm" type="button" id="themeBtn" aria-label="Switch colour theme">
+        <svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+      </button>
+      <button class="icon-btn" type="button" id="cartBtn" aria-label="Open bag">
+        <svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="count" id="cartCount" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <div class="crumbs"><a href="#">Home</a> / <a href="#">Collections</a> / Best Sellers</div>
+    <section class="hero">
+      <h1>Best Sellers</h1>
+      <div>
+        <p>The pieces our customers come back for. Breathable linen and cotton cut for Sri Lankan heat, restocked every month and ranked by what sold most in the last 30 days.</p>
+        <div class="meta">
+          <span class="chip">Updated weekly</span>
+          <span class="chip">Cash on delivery</span>
+          <span class="chip">7-day exchange</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <div class="left">
+        <button class="btn-line" type="button" id="filterBtn" aria-controls="rail" aria-expanded="true">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span id="filterLabel">Hide filters</span>
+        </button>
+        <span class="result-count" id="resultCount" aria-live="polite"></span>
+      </div>
+      <div class="right">
+        <label class="sort"><span>Sort by</span>
+          <select id="sort">
+            <option value="best">Best selling</option>
+            <option value="new">Newest</option>
+            <option value="low">Price, low to high</option>
+            <option value="high">Price, high to low</option>
+            <option value="az">Alphabetically, A–Z</option>
+            <option value="rating">Top rated</option>
+          </select>
+        </label>
+        <div class="cols" role="group" aria-label="Grid columns">
+          <button type="button" data-cols="2" aria-pressed="false" aria-label="2 columns"><svg viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="14" rx="1"/><rect x="9" y="1" width="6" height="14" rx="1"/></svg></button>
+          <button type="button" data-cols="3" aria-pressed="true" aria-label="3 columns"><svg viewBox="0 0 16 16"><rect x="0.5" y="1" width="4" height="14" rx="1"/><rect x="6" y="1" width="4" height="14" rx="1"/><rect x="11.5" y="1" width="4" height="14" rx="1"/></svg></button>
+          <button type="button" data-cols="4" aria-pressed="false" aria-label="4 columns"><svg viewBox="0 0 16 16"><rect x="0" y="1" width="3" height="14" rx="1"/><rect x="4.3" y="1" width="3" height="14" rx="1"/><rect x="8.6" y="1" width="3" height="14" rx="1"/><rect x="13" y="1" width="3" height="14" rx="1"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="active-filters" id="activeFilters"></div>
+
+    <div class="shop" id="shop">
+      <aside class="rail" id="rail" aria-label="Filters">
+        <div class="rail-head"><h2>Filter</h2><button class="icon-btn" type="button" id="railClose" aria-label="Close filters"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+        <details class="facet" open><summary>Category</summary><div class="opts" id="fCat"></div></details>
+        <details class="facet" open><summary>Size</summary><div class="size-opts" id="fSize"></div></details>
+        <details class="facet" open><summary>Colour</summary><div class="swatch-opts" id="fColor"></div></details>
+        <details class="facet" open><summary>Price</summary>
+          <div class="range">
+            <label for="fPrice">Up to <output id="fPriceOut"></output></label>
+            <input type="range" id="fPrice" min="1500" max="12000" step="500">
+          </div>
+        </details>
+        <details class="facet" open><summary>Availability</summary>
+          <div class="opts">
+            <label class="check"><input type="checkbox" id="fStock"> In stock only</label>
+            <label class="check"><input type="checkbox" id="fSale"> On sale</label>
+          </div>
+        </details>
+        <div style="padding-top:16px"><button class="btn" type="button" id="railApply" style="width:100%">Show results</button></div>
+      </aside>
+
+      <section aria-label="Products">
+        <div class="grid" id="products"></div>
+        <div class="more" id="more"></div>
+      </section>
+    </div>
+  </div>
+
+  <section class="promises" aria-label="Our promises">
+    <div class="wrap">
+      <div class="promise"><svg viewBox="0 0 32 32"><path d="M3 9h16v13H3zM19 13h6l4 5v4h-10z"/><circle cx="9" cy="24" r="2.5"/><circle cx="24" cy="24" r="2.5"/></svg><div><b>Island-wide delivery</b><span>2–4 working days. Free over Rs. 10,000.</span></div></div>
+      <div class="promise"><svg viewBox="0 0 32 32"><path d="M6 16a10 10 0 0 1 17-7l3 3M26 16a10 10 0 0 1-17 7l-3-3"/><path d="M26 6v6h-6M6 26v-6h6"/></svg><div><b>7-day exchanges</b><span>Wrong size? Swap it, no questions.</span></div></div>
+      <div class="promise"><svg viewBox="0 0 32 32"><rect x="4" y="8" width="24" height="16" rx="2"/><path d="M4 13h24M9 19h5"/></svg><div><b>Pay your way</b><span>Card, bank transfer or cash on delivery.</span></div></div>
+      <div class="promise"><svg viewBox="0 0 32 32"><path d="M16 4c5 4 8 8 8 13a8 8 0 0 1-16 0c0-5 3-9 8-13Z"/><path d="M16 12v14"/></svg><div><b>Made in Sri Lanka</b><span>Sewn in small batches in Colombo.</span></div></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo"><b>Haju Bliss</b><small>Colombo · Est. 2024</small></div>
+        <p style="max-width:38ch;opacity:.8;font-size:14px;margin:16px 0 0">Easy, breathable clothing for warm days and long evenings. Join the list for restocks and new drops.</p>
+        <form class="news" id="newsForm" novalidate>
+          <label for="newsEmail" class="sr">Email address</label>
+          <input id="newsEmail" type="email" placeholder="Your email address" autocomplete="email">
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="news-msg" id="newsMsg" aria-live="polite"></div>
+      </div>
+      <div><h4>Shop</h4><ul><li><a href="#">New In</a></li><li><a href="#">Best Sellers</a></li><li><a href="#">Women</a></li><li><a href="#">Men</a></li><li><a href="#">Gift cards</a></li></ul></div>
+      <div><h4>Help</h4><ul><li><a href="#">Size guide</a></li><li><a href="#">Delivery</a></li><li><a href="#">Exchanges &amp; returns</a></li><li><a href="#">Track your order</a></li><li><a href="#">Contact us</a></li></ul></div>
+      <div><h4>Haju Bliss</h4><ul><li><a href="#">Our story</a></li><li><a href="#">Store locator</a></li><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">TikTok</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="yr">2026</span> Haju Bliss. All prices in Sri Lankan Rupees.</span>
+      <div class="pay"><span>Visa</span><span>Mastercard</span><span>Bank transfer</span><span>Cash on delivery</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Overlays -->
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="cart" aria-label="Shopping bag" aria-hidden="true">
+  <div class="drawer-head"><h2>Your bag</h2><button class="icon-btn" type="button" id="cartClose" aria-label="Close bag"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="ship" id="ship"></div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<aside class="drawer left" id="menu" aria-label="Menu" aria-hidden="true">
+  <div class="drawer-head"><h2>Menu</h2><button class="icon-btn" type="button" id="menuClose" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="drawer-body">
+    <ul style="list-style:none;margin:0;padding:0;display:grid;gap:4px;font:400 28px/1.5 var(--f-display)">
+      <li><a href="#" style="text-decoration:none">New In</a></li>
+      <li><a href="#" style="text-decoration:none">Best Sellers</a></li>
+      <li><a href="#" style="text-decoration:none">Women</a></li>
+      <li><a href="#" style="text-decoration:none">Men</a></li>
+      <li><a href="#" style="text-decoration:none">Accessories</a></li>
+      <li><a href="#" style="text-decoration:none;color:var(--sale)">Sale</a></li>
+    </ul>
+  </div>
+</aside>
+
+<div class="search-panel" id="search" aria-label="Search" aria-hidden="true">
+  <div class="wrap">
+    <div class="search-row">
+      <label for="q" class="sr">Search products</label>
+      <input id="q" type="search" placeholder="Search dresses, linen, shirts…" autocomplete="off">
+      <button class="icon-btn" type="button" id="searchClose" aria-label="Close search"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="results" id="results"></div>
+  </div>
+</div>
+
+<div class="modal" id="qv" role="dialog" aria-modal="true" aria-labelledby="qvTitle">
+  <div class="box" id="qvBox"></div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  /* ---------- Catalogue: edit this list to change products ---------- */
+  const COLORS = {
+    sand: ["Sand", "#D8C3A5"], ivory: ["Ivory", "#F1ECE2"], sage: ["Sage", "#9DB09A"], olive: ["Olive", "#6B7346"],
+    navy: ["Navy", "#2C3A57"], black: ["Black", "#222222"], blush: ["Blush", "#E7B7B3"], terracotta: ["Rust", "#B5654A"],
+    sky: ["Sky", "#A9C6DE"], lilac: ["Lilac", "#BBA6D3"], white: ["White", "#FAFAF7"], mustard: ["Mustard", "#D6A743"]
+  };
+  // shape: dress | tee | shirt | trousers | skirt | shorts | tote | kaftan
+  // sold: units sold in the last 30 days (drives "Best selling"); added: days since launch (drives "Newest")
+  const PRODUCTS = [
+    { id: 1,  name: "Mirissa Linen Midi Dress",     cat: "Dresses",     shape: "dress",    price: 7490, was: 0,    colors: ["sage","sand","navy"],     sizes: {XS:3,S:6,M:8,L:4,XL:0}, sold: 412, added: 60,  rating: 4.8, reviews: 126, desc: "A breezy midi in washed linen with a square neck, adjustable straps and side pockets." },
+    { id: 2,  name: "Galle Fort Oversized Tee",     cat: "Tops",        shape: "tee",      price: 2990, was: 3490, colors: ["ivory","black","terracotta","sky"], sizes: {XS:5,S:9,M:12,L:10,XL:6}, sold: 388, added: 120, rating: 4.7, reviews: 204, desc: "Heavyweight combed cotton with a dropped shoulder. Holds its shape wash after wash." },
+    { id: 3,  name: "Ella Wide-Leg Trousers",       cat: "Bottoms",     shape: "trousers", price: 5990, was: 0,    colors: ["sand","black","olive"],    sizes: {XS:2,S:5,M:7,L:5,XL:3}, sold: 351, added: 45,  rating: 4.6, reviews: 98,  desc: "High-rise, elasticated back waist and a fluid drape. Pairs with everything." },
+    { id: 4,  name: "Kandy Batik Kaftan",           cat: "Dresses",     shape: "kaftan",   price: 6490, was: 8190, colors: ["navy","terracotta"],       sizes: {XS:0,S:4,M:6,L:6,XL:2}, sold: 305, added: 200, rating: 4.9, reviews: 77,  desc: "Hand-finished batik print on soft rayon. Relaxed fit with a tie at the waist." },
+    { id: 5,  name: "Unawatuna Resort Shirt",       cat: "Men",         shape: "shirt",    price: 4990, was: 0,    colors: ["white","sky","olive"],     sizes: {XS:0,S:6,M:9,L:8,XL:5}, sold: 287, added: 30,  rating: 4.7, reviews: 63,  desc: "Camp collar, boxy cut and coconut shell buttons. Linen-cotton blend." },
+    { id: 6,  name: "Sigiriya Pleated Skirt",       cat: "Bottoms",     shape: "skirt",    price: 4490, was: 5490, colors: ["blush","black","mustard"], sizes: {XS:3,S:4,M:2,L:0,XL:0}, sold: 266, added: 95,  rating: 4.5, reviews: 51,  desc: "Knife pleats that move with you, fully lined, with a hidden side zip." },
+    { id: 7,  name: "Bentota Linen Shorts",         cat: "Men",         shape: "shorts",   price: 3490, was: 0,    colors: ["sand","navy","sage"],      sizes: {XS:0,S:5,M:8,L:7,XL:4}, sold: 244, added: 20,  rating: 4.6, reviews: 40,  desc: "Drawstring waist, 7-inch inseam, deep pockets. Your weekend uniform." },
+    { id: 8,  name: "Pettah Market Tote",           cat: "Accessories", shape: "tote",     price: 1990, was: 0,    colors: ["ivory","black","terracotta"], sizes: {OS:30}, sold: 231, added: 150, rating: 4.8, reviews: 88, desc: "Heavy canvas with an inner zip pocket. Fits a laptop, a lunch and the rest." },
+    { id: 9,  name: "Nuwara Eliya Wrap Dress",      cat: "Dresses",     shape: "dress",    price: 8290, was: 0,    colors: ["lilac","black"],           sizes: {XS:2,S:3,M:3,L:2,XL:1}, sold: 219, added: 12,  rating: 4.7, reviews: 22,  desc: "True wrap with flutter sleeves, in a crinkle crepe that never needs ironing." },
+    { id: 10, name: "Arugam Bay Boxy Tee",          cat: "Men",         shape: "tee",      price: 2790, was: 0,    colors: ["white","black","olive","navy"], sizes: {XS:0,S:10,M:14,L:12,XL:8}, sold: 207, added: 80, rating: 4.5, reviews: 131, desc: "Mid-weight cotton jersey with a clean crew neck. Pre-shrunk." },
+    { id: 11, name: "Colombo Seven Linen Shirt",    cat: "Tops",        shape: "shirt",    price: 5290, was: 6290, colors: ["white","sky","blush"],     sizes: {XS:4,S:5,M:0,L:3,XL:2}, sold: 194, added: 110, rating: 4.6, reviews: 57,  desc: "Relaxed button-down in pure linen. Wear it tucked, knotted or open." },
+    { id: 12, name: "Jaffna Palm Print Co-ord Skirt", cat: "Co-ords",   shape: "skirt",    price: 4990, was: 0,    colors: ["mustard","sage"],          sizes: {XS:2,S:4,M:5,L:3,XL:0}, sold: 176, added: 8,   rating: 4.4, reviews: 14,  desc: "A-line midi in our palm print. Matches the Jaffna top for an easy set." },
+    { id: 13, name: "Jaffna Palm Print Co-ord Top", cat: "Co-ords",     shape: "tee",      price: 3990, was: 0,    colors: ["mustard","sage"],          sizes: {XS:2,S:4,M:5,L:3,XL:0}, sold: 169, added: 8,   rating: 4.4, reviews: 11,  desc: "Cropped boxy top with short sleeves in our palm print." },
+    { id: 14, name: "Hikkaduwa Drawstring Pants",   cat: "Men",         shape: "trousers", price: 5490, was: 0,    colors: ["black","sand"],            sizes: {XS:0,S:0,M:0,L:0,XL:0}, sold: 158, added: 70,  rating: 4.6, reviews: 45,  desc: "Lightweight cotton twill with a tapered leg. Back in stock soon." },
+    { id: 15, name: "Trinco Slip Dress",            cat: "Dresses",     shape: "dress",    price: 5990, was: 7490, colors: ["black","terracotta","sky"], sizes: {XS:3,S:5,M:4,L:2,XL:1}, sold: 147, added: 140, rating: 4.5, reviews: 36, desc: "Bias-cut satin slip that layers under a shirt or stands alone at night." },
+    { id: 16, name: "Kitulgala Utility Shorts",     cat: "Bottoms",     shape: "shorts",   price: 3790, was: 0,    colors: ["olive","sand"],            sizes: {XS:3,S:6,M:6,L:4,XL:2}, sold: 133, added: 25,  rating: 4.3, reviews: 19,  desc: "Paperbag waist with a self-tie belt and patch pockets." },
+    { id: 17, name: "Lotus Beaded Mini Tote",       cat: "Accessories", shape: "tote",     price: 2490, was: 2990, colors: ["blush","ivory"],           sizes: {OS:12}, sold: 121, added: 55,  rating: 4.7, reviews: 29,  desc: "Hand-beaded by artisans in Kurunegala. Big enough for the essentials." },
+    { id: 18, name: "Yala Long Sleeve Shirt",       cat: "Men",         shape: "shirt",    price: 5790, was: 0,    colors: ["olive","navy","white"],    sizes: {XS:0,S:4,M:6,L:6,XL:3}, sold: 112, added: 15,  rating: 4.6, reviews: 18,  desc: "Garment-dyed cotton poplin with a button-down collar." }
+  ];
+  const SHIP_FREE = 10000, SHIP_FEE = 450, PAGE = 9;
+
+  /* ---------- Helpers ---------- */
+  const $ = (s, el = document) => el.querySelector(s);
+  const fmt = n => "Rs. " + n.toLocaleString("en-LK", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("hb:" + k); return v ? JSON.parse(v) : d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("hb:" + k, JSON.stringify(v)); } catch {} }
+  };
+  const inStock = p => Object.values(p.sizes).some(n => n > 0);
+  const onSale = p => p.was > p.price;
+  const pct = p => Math.round((1 - p.price / p.was) * 100);
+  const shade = (hex, amt) => {
+    const n = parseInt(hex.slice(1), 16);
+    const c = [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.max(0, Math.min(255, Math.round(v * (1 + amt)))));
+    return "#" + c.map(v => v.toString(16).padStart(2, "0")).join("");
+  };
+
+  /* ---------- Product illustrations (replace with real photos later) ---------- */
+  const SHAPES = {
+    dress: `<path d="M128 70h44l6 46q-10 22-2 44l58 168H66l58-168q8-22-2-44z"/><path d="M128 70l-6-26M172 70l6-26" fill="none" stroke-width="4"/>`,
+    kaftan: `<path d="M120 70q30 18 60 0l78 60-26 30-36-22 10 190H92l10-190-36 22-26-30z"/>`,
+    tee: `<path d="M98 80l32-14q20 20 40 0l32 14 40 44-28 26-18-16v196H104V134l-18 16-28-26z"/>`,
+    shirt: `<path d="M98 78l34-12 18 22 18-22 34 12 30 80 8 140-30 4-10-120v150H100V182L90 302l-30-4 8-140z"/><path d="M150 88v232" fill="none" stroke-width="2" stroke-dasharray="2 18"/>`,
+    trousers: `<path d="M104 66h92l18 266h-50l-14-180-14 180H86z"/><path d="M104 80h92" fill="none" stroke-width="3"/>`,
+    skirt: `<path d="M114 96h72l50 210H64z"/><path d="M114 108h72M130 110l-24 196M150 110v196M170 110l24 196" fill="none" stroke-width="2"/>`,
+    shorts: `<path d="M96 110h108l16 140h-62l-8-70-8 70H80z"/><path d="M96 124h108" fill="none" stroke-width="3"/>`,
+    tote: `<path d="M112 150q0-70 38-70t38 70" fill="none" stroke-width="9"/><path d="M76 150h148l-10 180H86z"/>`
+  };
+  const BGS = ["#E9E4DA", "#E3E7E1", "#ECE4E6", "#E2E6EC", "#ECE7DC"];
+  function art(p, colorKey, alt = false) {
+    const hex = COLORS[colorKey][1];
+    const bg = alt ? shade(BGS[p.id % BGS.length], -0.06) : BGS[p.id % BGS.length];
+    const line = shade(hex, -0.28);
+    const t = alt ? `transform="translate(150 200) scale(1.55) translate(-150 -185)"` : "";
+    return `<svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(p.name)} in ${COLORS[colorKey][0]}">
+      <rect width="300" height="400" fill="${bg}"/>
+      <ellipse cx="150" cy="352" rx="96" ry="10" fill="#000" opacity=".07"/>
+      <g ${t} fill="${hex}" stroke="${line}" stroke-width="1.5" stroke-linejoin="round">${SHAPES[p.shape]}</g>
+    </svg>`;
+  }
+
+  /* ---------- State ---------- */
+  const state = {
+    cats: new Set(), sizes: new Set(), colors: new Set(), max: 12000, stock: false, sale: false,
+    sort: store.get("sort", "best"), cols: store.get("cols", 3), shown: PAGE, rail: store.get("rail", true),
+    pick: {} // chosen colour per product
+  };
+  let cart = store.get("cart", []);
+
+  /* ---------- Filters ---------- */
+  const cats = [...new Set(PRODUCTS.map(p => p.cat))];
+  const sizeList = ["XS", "S", "M", "L", "XL", "OS"];
+  const colorKeys = Object.keys(COLORS).filter(k => PRODUCTS.some(p => p.colors.includes(k)));
+
+  $("#fCat").innerHTML = cats.map((c, i) => `<label class="check"><input type="checkbox" id="cat${i}" value="${esc(c)}"> ${esc(c)} <em>${PRODUCTS.filter(p => p.cat === c).length}</em></label>`).join("");
+  $("#fSize").innerHTML = sizeList.map(s => `<button type="button" data-size="${s}" aria-pressed="false">${s === "OS" ? "One size" : s}</button>`).join("");
+  $("#fColor").innerHTML = colorKeys.map(k => `<button type="button" data-color="${k}" aria-pressed="false" aria-label="${COLORS[k][0]}" title="${COLORS[k][0]}" style="background:${COLORS[k][1]}"></button>`).join("");
+  const price = $("#fPrice");
+  price.value = state.max;
+
+  $("#fCat").addEventListener("change", e => { e.target.checked ? state.cats.add(e.target.value) : state.cats.delete(e.target.value); refresh(); });
+  $("#fSize").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; toggle(state.sizes, b.dataset.size); refresh(); });
+  $("#fColor").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; toggle(state.colors, b.dataset.color); refresh(); });
+  price.addEventListener("input", () => { state.max = +price.value; refresh(); });
+  $("#fStock").addEventListener("change", e => { state.stock = e.target.checked; refresh(); });
+  $("#fSale").addEventListener("change", e => { state.sale = e.target.checked; refresh(); });
+  function toggle(set, v) { set.has(v) ? set.delete(v) : set.add(v); }
+
+  function filtered() {
+    let list = PRODUCTS.filter(p =>
+      (!state.cats.size || state.cats.has(p.cat)) &&
+      (!state.sizes.size || [...state.sizes].some(s => (p.sizes[s] || 0) > 0)) &&
+      (!state.colors.size || p.colors.some(c => state.colors.has(c))) &&
+      p.price <= state.max &&
+      (!state.stock || inStock(p)) &&
+      (!state.sale || onSale(p)));
+    const by = {
+      best: (a, b) => b.sold - a.sold, new: (a, b) => a.added - b.added, low: (a, b) => a.price - b.price,
+      high: (a, b) => b.price - a.price, az: (a, b) => a.name.localeCompare(b.name), rating: (a, b) => b.rating - a.rating
+    };
+    return list.sort(by[state.sort]);
+  }
+  const rankOf = new Map([...PRODUCTS].sort((a, b) => b.sold - a.sold).map((p, i) => [p.id, i + 1]));
+
+  /* ---------- Render ---------- */
+  function cardHTML(p) {
+    const color = state.pick[p.id] || p.colors[0];
+    const rank = rankOf.get(p.id);
+    const stars = "★★★★★".slice(0, Math.round(p.rating)) + "☆☆☆☆☆".slice(0, 5 - Math.round(p.rating));
+    const sizes = Object.entries(p.sizes).map(([s, n]) =>
+      `<button type="button" data-add="${p.id}" data-size="${s}" ${n ? "" : "disabled"} aria-label="Add size ${s === "OS" ? "one size" : s} to bag">${s === "OS" ? "Add to bag" : s}</button>`).join("");
+    return `<article class="card" data-id="${p.id}">
+      <div class="media">
+        <div class="badges">
+          ${!inStock(p) ? `<span class="badge out">Sold out</span>` : onSale(p) ? `<span class="badge sale">−${pct(p)}%</span>` : ""}
+          ${p.added <= 14 ? `<span class="badge">New</span>` : ""}
+        </div>
+        ${rank <= 10 && state.sort === "best" ? `<span class="rank" aria-label="Number ${rank} best seller">${String(rank).padStart(2, "0")}</span>` : ""}
+        <div class="img main">${art(p, color)}</div>
+        <div class="img alt" aria-hidden="true">${art(p, color, true)}</div>
+        ${inStock(p) ? `<div class="quick"><p>Quick add</p><div class="sizes">${sizes}</div></div>` : ""}
+      </div>
+      <h3><button type="button" data-view="${p.id}">${esc(p.name)}</button></h3>
+      <div class="price">${onSale(p) ? `<span class="now on-sale">${fmt(p.price)}</span><s>${fmt(p.was)}</s>` : `<span class="now">${fmt(p.price)}</span>`}</div>
+      <div class="swatches" role="group" aria-label="Colours">${p.colors.map(c =>
+        `<button type="button" data-swatch="${p.id}" data-c="${c}" aria-pressed="${c === color}" aria-label="${COLORS[c][0]}" title="${COLORS[c][0]}" style="background:${COLORS[c][1]}"></button>`).join("")}</div>
+      <div class="stars"><i aria-hidden="true">${stars}</i><span>${p.rating.toFixed(1)} (${p.reviews})</span></div>
+    </article>`;
+  }
+
+  function render() {
+    const list = filtered();
+    const grid = $("#products");
+    grid.style.setProperty("--cols", state.cols);
+    const shown = list.slice(0, state.shown);
+    grid.innerHTML = shown.length ? shown.map(cardHTML).join("") :
+      `<div class="empty"><h3>Nothing matches yet</h3><p>Try removing a filter or two.</p><button class="btn ghost" type="button" data-clear>Clear all filters</button></div>`;
+    $("#resultCount").textContent = `${list.length} product${list.length === 1 ? "" : "s"}`;
+    $("#more").innerHTML = list.length ? `
+      <small>Showing ${shown.length} of ${list.length}</small>
+      <div class="bar"><i style="width:${(shown.length / list.length) * 100}%"></i></div>
+      ${shown.length < list.length ? `<button class="btn ghost" type="button" id="loadMore">Load more</button>` : ""}` : "";
+    renderActive();
+  }
+  function renderActive() {
+    const pills = [];
+    state.cats.forEach(c => pills.push([`cat:${c}`, c]));
+    state.sizes.forEach(s => pills.push([`size:${s}`, `Size ${s}`]));
+    state.colors.forEach(c => pills.push([`color:${c}`, COLORS[c][0]]));
+    if (state.max < 12000) pills.push(["max", `Under ${fmt(state.max)}`]);
+    if (state.stock) pills.push(["stock", "In stock"]);
+    if (state.sale) pills.push(["sale", "On sale"]);
+    $("#activeFilters").innerHTML = pills.length ? pills.map(([k, l]) => `<button class="pill" type="button" data-rm="${esc(k)}">${esc(l)} <span aria-hidden="true">×</span><span class="sr">Remove filter</span></button>`).join("") + `<button class="linkish" type="button" data-clear>Clear all</button>` : "";
+  }
+  function syncControls() {
+    document.querySelectorAll("#fCat input").forEach(i => i.checked = state.cats.has(i.value));
+    document.querySelectorAll("#fSize button").forEach(b => b.setAttribute("aria-pressed", state.sizes.has(b.dataset.size)));
+    document.querySelectorAll("#fColor button").forEach(b => b.setAttribute("aria-pressed", state.colors.has(b.dataset.color)));
+    price.value = state.max; $("#fPriceOut").textContent = fmt(state.max);
+    $("#fStock").checked = state.stock; $("#fSale").checked = state.sale;
+  }
+  function refresh() { state.shown = PAGE; syncControls(); render(); }
+  function clearAll() { state.cats.clear(); state.sizes.clear(); state.colors.clear(); state.max = 12000; state.stock = state.sale = false; refresh(); }
+
+  $("#activeFilters").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.hasAttribute("data-clear")) return clearAll();
+    const [k, v] = b.dataset.rm.split(/:(.*)/s);
+    ({ cat: () => state.cats.delete(v), size: () => state.sizes.delete(v), color: () => state.colors.delete(v),
+       max: () => state.max = 12000, stock: () => state.stock = false, sale: () => state.sale = false })[k]();
+    refresh();
+  });
+
+  $("#products").addEventListener("click", e => {
+    const t = e.target.closest("button"); if (!t) return;
+    if (t.hasAttribute("data-clear")) return clearAll();
+    if (t.dataset.swatch) {
+      state.pick[t.dataset.swatch] = t.dataset.c;
+      const card = t.closest(".card"); const p = PRODUCTS.find(x => x.id == t.dataset.swatch);
+      card.outerHTML = cardHTML(p);
+      return;
+    }
+    if (t.dataset.add) { const p = PRODUCTS.find(x => x.id == t.dataset.add); addToCart(p, t.dataset.size, state.pick[p.id] || p.colors[0]); return; }
+    if (t.dataset.view) openQV(+t.dataset.view);
+  });
+  $("#products").addEventListener("click", e => {
+    if (e.target.closest(".media") && !e.target.closest("button")) openQV(+e.target.closest(".card").dataset.id);
+  });
+  $("#more").addEventListener("click", e => { if (e.target.id === "loadMore") { state.shown += PAGE; render(); } });
+
+  $("#sort").value = state.sort;
+  $("#sort").addEventListener("change", e => { state.sort = e.target.value; store.set("sort", state.sort); render(); });
+  document.querySelectorAll(".cols button").forEach(b => {
+    b.setAttribute("aria-pressed", +b.dataset.cols === state.cols);
+    b.addEventListener("click", () => {
+      state.cols = +b.dataset.cols; store.set("cols", state.cols);
+      document.querySelectorAll(".cols button").forEach(x => x.setAttribute("aria-pressed", x === b));
+      render();
+    });
+  });
+
+  /* Filter rail: hide/show on desktop, slide-in on mobile */
+  const mobile = () => matchMedia("(max-width: 900px)").matches;
+  function setRail(on) {
+    state.rail = on; store.set("rail", on);
+    $("#shop").classList.toggle("no-rail", !on);
+    $("#filterLabel").textContent = on ? "Hide filters" : "Show filters";
+    $("#filterBtn").setAttribute("aria-expanded", on);
+  }
+  $("#filterBtn").addEventListener("click", () => {
+    if (mobile()) { $("#rail").classList.add("on"); scrim(true); $("#filterLabel").textContent = "Filter"; }
+    else setRail(!state.rail);
+  });
+  const closeRail = () => { $("#rail").classList.remove("on"); scrim(false); };
+  $("#railClose").addEventListener("click", closeRail);
+  $("#railApply").addEventListener("click", () => { if (mobile()) closeRail(); else $("#products").scrollIntoView({ behavior: "smooth" }); });
+  setRail(state.rail);
+  if (mobile()) $("#filterLabel").textContent = "Filter";
+
+  /* ---------- Overlays ---------- */
+  function scrim(on) { $("#scrim").classList.toggle("on", on); document.body.style.overflow = on ? "hidden" : ""; }
+  function openDrawer(id) { const d = $(id); d.classList.add("on"); d.setAttribute("aria-hidden", "false"); scrim(true); d.querySelector("button")?.focus(); }
+  function closeAll() {
+    ["#cart", "#menu", "#search"].forEach(id => { $(id).classList.remove("on"); $(id).setAttribute("aria-hidden", "true"); });
+    $("#rail").classList.remove("on"); $("#qv").classList.remove("on"); scrim(false);
+  }
+  $("#scrim").addEventListener("click", closeAll);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
+  $("#cartBtn").addEventListener("click", () => { renderCart(); openDrawer("#cart"); });
+  $("#cartClose").addEventListener("click", closeAll);
+  $("#menuBtn").addEventListener("click", () => openDrawer("#menu"));
+  $("#menuClose").addEventListener("click", closeAll);
+  $("#searchBtn").addEventListener("click", () => { openDrawer("#search"); $("#q").focus(); search(); });
+  $("#searchClose").addEventListener("click", closeAll);
+  $("#qv").addEventListener("click", e => { if (e.target.id === "qv") closeAll(); });
+
+  /* Search */
+  function search() {
+    const q = $("#q").value.trim().toLowerCase();
+    const list = (q ? PRODUCTS.filter(p => (p.name + " " + p.cat + " " + p.desc + " " + p.colors.map(c => COLORS[c][0]).join(" ")).toLowerCase().includes(q))
+                    : [...PRODUCTS].sort((a, b) => b.sold - a.sold).slice(0, 6));
+    $("#results").innerHTML = (q ? "" : `<p style="grid-column:1/-1;margin:0;color:var(--muted);font-size:13px">Popular right now</p>`) +
+      (list.length ? list.map(p => `<button type="button" data-view="${p.id}"><div class="thumb">${art(p, p.colors[0])}</div><span>${esc(p.name)}</span><b style="font-weight:500">${fmt(p.price)}</b></button>`).join("")
+                   : `<p style="grid-column:1/-1;margin:0">No products found for “${esc(q)}”.</p>`);
+  }
+  $("#q").addEventListener("input", search);
+  $("#results").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) { closeAll(); openQV(+b.dataset.view); } });
+
+  /* Quick view */
+  function openQV(id) {
+    const p = PRODUCTS.find(x => x.id === id);
+    let color = state.pick[p.id] || p.colors[0];
+    let size = Object.keys(p.sizes).find(s => p.sizes[s] > 0) || null;
+    const draw = () => {
+      $("#qvBox").innerHTML = `
+        <button class="icon-btn close" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <div class="qv-media">${art(p, color)}</div>
+        <div class="qv-info">
+          <span class="chip" style="justify-self:start">${esc(p.cat)} · #${rankOf.get(p.id)} best seller</span>
+          <h2 id="qvTitle">${esc(p.name)}</h2>
+          <div class="price">${onSale(p) ? `<span class="now on-sale">${fmt(p.price)}</span><s>${fmt(p.was)}</s><span class="badge sale">Save ${pct(p)}%</span>` : `<span class="now">${fmt(p.price)}</span>`}</div>
+          <div class="stars"><i aria-hidden="true">${"★".repeat(Math.round(p.rating))}${"☆".repeat(5 - Math.round(p.rating))}</i><span>${p.rating.toFixed(1)} from ${p.reviews} reviews</span></div>
+          <p>${esc(p.desc)}</p>
+          <label class="lbl">Colour: <span style="font-weight:400;text-transform:none;letter-spacing:0">${COLORS[color][0]}</span></label>
+          <div class="swatch-opts" style="padding:0">${p.colors.map(c => `<button type="button" data-qc="${c}" aria-pressed="${c === color}" aria-label="${COLORS[c][0]}" style="background:${COLORS[c][1]}"></button>`).join("")}</div>
+          <label class="lbl">Size</label>
+          <div class="size-opts" style="padding:0">${Object.entries(p.sizes).map(([s, n]) => `<button type="button" data-qs="${s}" ${n ? "" : "disabled style=\"opacity:.35;text-decoration:line-through\""} aria-pressed="${s === size}">${s === "OS" ? "One size" : s}</button>`).join("")}</div>
+          ${size && p.sizes[size] <= 3 ? `<p style="color:var(--sale);font-size:13px">Only ${p.sizes[size]} left in ${size}</p>` : ""}
+          <button class="btn" type="button" data-qadd ${inStock(p) ? "" : "disabled"}>${inStock(p) ? "Add to bag · " + fmt(p.price) : "Sold out"}</button>
+          <p class="note">Free delivery over ${fmt(SHIP_FREE)} · 7-day exchanges · Cash on delivery available</p>
+        </div>`;
+    };
+    draw();
+    $("#qvBox").onclick = e => {
+      const b = e.target.closest("button"); if (!b) return;
+      if (b.hasAttribute("data-close")) return closeAll();
+      if (b.dataset.qc) { color = b.dataset.qc; draw(); }
+      if (b.dataset.qs) { size = b.dataset.qs; draw(); }
+      if (b.hasAttribute("data-qadd") && size) { addToCart(p, size, color); closeAll(); renderCart(); openDrawer("#cart"); }
+    };
+    $("#qv").classList.add("on"); scrim(true);
+    $("#qvBox [data-close]").focus();
+  }
+
+  /* ---------- Cart ---------- */
+  function addToCart(p, size, color) {
+    const key = `${p.id}-${size}-${color}`;
+    const line = cart.find(l => l.key === key);
+    const left = p.sizes[size] || 0;
+    if (line) { if (line.qty >= left) return toast(`Only ${left} available in ${size}`); line.qty++; }
+    else cart.push({ key, id: p.id, size, color, qty: 1 });
+    saveCart(); toast(`Added ${p.name} (${size === "OS" ? "One size" : size}) to your bag`);
+  }
+  function saveCart() { store.set("cart", cart); const n = cart.reduce((s, l) => s + l.qty, 0); const c = $("#cartCount"); c.textContent = n; c.hidden = !n; }
+  function renderCart() {
+    const sub = cart.reduce((s, l) => s + PRODUCTS.find(p => p.id === l.id).price * l.qty, 0);
+    const left = Math.max(0, SHIP_FREE - sub);
+    $("#ship").innerHTML = `<span>${left ? `You're <b>${fmt(left)}</b> away from free delivery` : `<b>You've unlocked free island-wide delivery</b>`}</span><div class="bar"><i style="width:${Math.min(100, sub / SHIP_FREE * 100)}%"></i></div>`;
+    if (!cart.length) {
+      $("#cartBody").innerHTML = `<div class="cart-empty"><p style="font:400 26px/1.2 var(--f-display);color:var(--ink);margin:0">Your bag is empty</p><p style="margin:0">Start with a best seller. Most customers begin with the Mirissa dress.</p><button class="btn" type="button" data-close>Keep shopping</button></div>`;
+      $("#cartFoot").innerHTML = "";
+      return;
+    }
+    $("#cartBody").innerHTML = cart.map(l => {
+      const p = PRODUCTS.find(x => x.id === l.id);
+      return `<div class="line-item"><div class="thumb">${art(p, l.color)}</div>
+        <div><h4>${esc(p.name)}</h4><small>${COLORS[l.color][0]} / ${l.size === "OS" ? "One size" : l.size}</small>
+          <div class="qty"><button type="button" data-dec="${l.key}" aria-label="Decrease quantity">−</button><span>${l.qty}</span><button type="button" data-inc="${l.key}" aria-label="Increase quantity">+</button></div></div>
+        <div class="end"><span>${fmt(p.price * l.qty)}</span><button class="linkish" type="button" data-del="${l.key}">Remove</button></div></div>`;
+    }).join("");
+    const ship = left ? SHIP_FEE : 0;
+    $("#cartFoot").innerHTML = `
+      <div class="subtotal" style="font-size:14px;font-weight:400"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+      <div class="subtotal" style="font-size:14px;font-weight:400"><span>Delivery</span><span>${ship ? fmt(ship) : "Free"}</span></div>
+      <div class="subtotal"><span>Total</span><span>${fmt(sub + ship)}</span></div>
+      <button class="btn" type="button" id="checkout">Check out</button>
+      <p class="note" id="checkoutNote">Taxes included. Card, bank transfer or cash on delivery.</p>`;
+  }
+  $("#cart").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.hasAttribute("data-close")) return closeAll();
+    if (b.id === "checkout") { $("#checkoutNote").textContent = "This is a demo store, so checkout isn't connected yet. Hook it up to your payment provider to take orders."; return; }
+    const key = b.dataset.inc || b.dataset.dec || b.dataset.del; if (!key) return;
+    const l = cart.find(x => x.key === key); const p = PRODUCTS.find(x => x.id === l.id);
+    if (b.dataset.inc) { if (l.qty < p.sizes[l.size]) l.qty++; else toast(`Only ${p.sizes[l.size]} available`); }
+    if (b.dataset.dec) l.qty--;
+    if (b.dataset.del || l.qty <= 0) cart = cart.filter(x => x.key !== key);
+    saveCart(); renderCart();
+  });
+
+  /* ---------- Bits ---------- */
+  let tt;
+  function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 2600); }
+
+  const ANN = ["Free island-wide delivery on orders over Rs. 10,000", "New: the Jaffna palm print co-ord is here", "Cash on delivery available everywhere in Sri Lanka", "Exchange any size within 7 days"];
+  let ai = 0;
+  const showAnn = d => { ai = (ai + d + ANN.length) % ANN.length; $("#annText").textContent = ANN[ai]; };
+  $("#annPrev").addEventListener("click", () => showAnn(-1));
+  $("#annNext").addEventListener("click", () => showAnn(1));
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => showAnn(1), 5000);
+
+  $("#newsForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const v = $("#newsEmail").value.trim();
+    $("#newsMsg").textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "Thanks! You're on the list for restocks and new drops." : "Enter an email address like name@example.com.";
+  });
+
+  $("#themeBtn").addEventListener("click", () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+  });
+  $("#yr").textContent = new Date().getFullYear();
+
+  syncControls(); render(); saveCart();
+})();
+</script>
+</body>
+</html>
