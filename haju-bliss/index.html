@@ -6,6 +6,8 @@
 <title>Haju Bliss Bakery</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Haju Bliss — homemade lava brownies, chocolate loaded cookies, cakes and sweets in Negombo, Sri Lanka.">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Outfit:wght@300;400;500;600&display=swap">
@@ -19,8 +21,8 @@
   --line: #EADFD6;        /* hairlines */
   --cocoa: #4B2A1F;       /* actions */
   --cocoa-ink: #FFF8F2;
-  --berry: #C7436A;       /* best-seller badges, highlights */
-  --tint: #F6E3D9;        /* soft panels */
+  --berry: #B5207A;       /* logo magenta: best-seller badges, highlights */
+  --tint: #FADDE9;        /* logo pink: soft panels */
   --tint-ink: #4B2A1F;
   --shadow: 0 18px 50px rgba(60, 30, 20, .16);
   --f-display: "Young Serif", "Iowan Old Style", Georgia, serif;
@@ -32,13 +34,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --ground: #17110E; --surface: #221915; --ink: #F5ECE6; --muted: #BFA89D; --line: #3A2D27;
-    --cocoa: #F0C9A8; --cocoa-ink: #2A1A14; --berry: #F07FA0; --tint: #33241E; --tint-ink: #F6E3D9;
+    --cocoa: #F0C9A8; --cocoa-ink: #2A1A14; --berry: #F28CC0; --tint: #3A2330; --tint-ink: #F6E3D9;
     --shadow: 0 18px 50px rgba(0,0,0,.5); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --ground: #17110E; --surface: #221915; --ink: #F5ECE6; --muted: #BFA89D; --line: #3A2D27;
-  --cocoa: #F0C9A8; --cocoa-ink: #2A1A14; --berry: #F07FA0; --tint: #33241E; --tint-ink: #F6E3D9;
+  --cocoa: #F0C9A8; --cocoa-ink: #2A1A14; --berry: #F28CC0; --tint: #3A2330; --tint-ink: #F6E3D9;
   --shadow: 0 18px 50px rgba(0,0,0,.5); color-scheme: dark;
 }
 
@@ -65,7 +67,9 @@ button { cursor: pointer; }
 /* Header */
 header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--surface); border-bottom: 1px solid var(--line); }
 header.site .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; min-height: 74px; }
-.logo { text-decoration: none; text-align: center; line-height: 1; display: grid; justify-items: center; gap: 5px; }
+.logo { text-decoration: none; line-height: 1; display: flex; align-items: center; gap: 12px; }
+.logo .mark { width: 54px; height: 54px; border-radius: 50%; flex: none; }
+.logo .word { display: grid; gap: 5px; }
 .logo b { font: 400 30px/1 var(--f-display); letter-spacing: -.01em; }
 .logo b em { font-style: normal; color: var(--berry); }
 .logo small { font-size: 10px; letter-spacing: .34em; text-transform: uppercase; color: var(--muted); }
@@ -182,8 +186,8 @@ footer h4 { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; f
 footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; }
 footer ul a { text-decoration: none; opacity: .9; }
 footer ul a:hover { text-decoration: underline; }
-footer .logo { justify-items: start; }
-footer .logo b em { color: #F07FA0; }
+footer .logo .mark { width: 92px; height: 92px; }
+footer .logo b em { color: #F28CC0; }
 footer .logo small { color: inherit; opacity: .6; }
 .foot-base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(251, 241, 234, .18); font-size: 13px; opacity: .75; }
 
@@ -272,7 +276,10 @@ footer .logo small { color: inherit; opacity: .6; }
 }
 @media (max-width: 520px) {
   header.site .wrap { min-height: 64px; gap: 8px; }
-  .logo b { font-size: 25px; }
+  .logo b { font-size: 22px; }
+  .logo .mark { width: 42px; height: 42px; }
+  .logo { gap: 8px; }
+  header.site .logo small { display: none; }
   .tools .hide-sm { display: none; }
   .spot { gap: 10px; }
   .spot-card .txt b { font-size: 17px; }
@@ -313,7 +320,7 @@ footer .logo small { color: inherit; opacity: .6; }
         <a href="#shop" data-nav="Sweets">Sweets</a>
       </nav>
     </div>
-    <a class="logo" href="#" aria-label="Haju Bliss home"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></a>
+    <a class="logo" href="#" aria-label="Haju Bliss home"><img class="mark" src="images/logo.png" alt="" width="54" height="54"><span class="word"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></span></a>
     <div class="tools">
       <button class="icon-btn" type="button" id="searchBtn" aria-label="Search">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -411,7 +418,7 @@ footer .logo small { color: inherit; opacity: .6; }
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="logo"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></div>
+        <div class="logo"><img class="mark" src="images/logo.png" alt="Haju Bliss logo" width="92" height="92" loading="lazy"><span class="word"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></span></div>
         <p style="max-width:40ch;opacity:.8;font-size:14px;margin:16px 0 0">Brownies, cookies, cakes and traditional sweets, baked fresh at home in Negombo, Sri Lanka. Place your order here and we'll confirm it by message.</p>
       </div>
       <div><h4>Shop</h4><ul><li><a href="#shop" data-nav="">Best Sellers</a></li><li><a href="#shop" data-nav="Brownies">Brownies</a></li><li><a href="#shop" data-nav="Cookies">Cookies</a></li><li><a href="#shop" data-nav="Cakes">Cakes</a></li><li><a href="#shop" data-nav="Sweets">Sweets</a></li></ul></div>
