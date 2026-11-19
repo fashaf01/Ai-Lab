@@ -390,6 +390,92 @@ footer .logo small { color: inherit; opacity: .6; }
   .vhero-controls { bottom: 18px; right: max(16px, env(safe-area-inset-right, 0px)); }
 }
 
+
+/* ---------- Our Sweet Collection ---------- */
+.sweets { position: relative; isolation: isolate; overflow: hidden; color: #3B1E14;
+  background: radial-gradient(ellipse at 50% 0%, #FFF9EF 0%, transparent 60%), linear-gradient(180deg, #FBF3E6 0%, #F5E6CF 40%, #E8CBA6 78%, #C99A6E 100%); }
+.sweets-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.bgd { position: absolute; width: var(--sz); height: var(--sz); rotate: var(--r); animation: sw-drift var(--t) ease-in-out var(--d) infinite alternate; }
+@keyframes sw-drift { from { translate: 0 -12px; } to { translate: 8px 14px; rotate: calc(var(--r) + 35deg); } }
+.sweets-inner { max-width: 1240px; margin: 0 auto; padding-block: 88px 104px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.sweets-head { text-align: center; display: grid; justify-items: center; gap: 14px; margin-bottom: 56px; }
+.sweets-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: #A86B1F; }
+.sweets-eyebrow::before, .sweets-eyebrow::after { content: ""; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, #C99A4E); }
+.sweets-eyebrow::after { transform: scaleX(-1); }
+.sweets-head h2 { margin: 0; font: 400 clamp(32px, 4.6vw, 60px)/1.08 var(--f-display); letter-spacing: -.015em; text-wrap: balance; color: #3B1E14; }
+.sweets-head h2 em { font-style: normal; background: linear-gradient(100deg, #8A4A1E, #C98B2B 45%, #8A4A1E); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sweets-head p { margin: 0; font-size: 17px; color: #7A5440; letter-spacing: .02em; }
+
+.sweets-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 28px; perspective: 1400px; }
+.sw-card { --rx: 0deg; --ry: 0deg; --gx: 50%; position: relative; display: flex; flex-direction: column; background: linear-gradient(180deg, #FFFDF8, #FFF7EB);
+  border: 1px solid rgba(201, 154, 110, .28); border-radius: 30px; padding: 18px 18px 22px; box-shadow: 0 1px 0 #fff inset, 0 22px 50px -18px rgba(92, 52, 36, .35), 0 6px 14px rgba(92, 52, 36, .06);
+  transform: rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d; transition: transform .35s ease-out, box-shadow .35s, opacity .8s ease, translate .8s cubic-bezier(.2, .8, .2, 1);
+  transition-delay: 0s, 0s, calc(var(--i) * .12s), calc(var(--i) * .12s); }
+.sw-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .35s;
+  background: radial-gradient(circle at var(--gx) 0%, rgba(255, 236, 190, .55), transparent 55%); }
+.sw-card:hover { box-shadow: 0 1px 0 #fff inset, 0 34px 70px -20px rgba(92, 52, 36, .45), 0 0 0 1px rgba(232, 176, 78, .35); }
+.sw-card:hover::before { opacity: 1; }
+.reveal.pre { opacity: 0; translate: 0 40px; }
+
+.sw-stage { position: relative; aspect-ratio: 1 / .92; max-width: 100%; border-radius: 22px; cursor: pointer; transform-style: preserve-3d;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, .9), rgba(255, 244, 226, .4) 60%, transparent 75%); }
+.sw-stage:focus-visible { outline: 2px solid #C98B2B; outline-offset: 4px; }
+.sw-frame { position: absolute; left: 50%; top: 47%; width: 84%; translate: -50% -50%; overflow: visible; transform: translateZ(10px);
+  filter: drop-shadow(0 0 10px var(--glow)) drop-shadow(0 0 22px var(--glow2)); transition: filter .4s, scale .4s; }
+.sw-card:hover .sw-frame { filter: drop-shadow(0 0 16px var(--glow)) drop-shadow(0 0 42px var(--glow2)) drop-shadow(0 0 70px var(--glow2)); scale: 1.03; }
+.sw-frame .f-shape { fill: var(--fa); stroke: var(--fb); stroke-width: 7; }
+.sw-frame .f-inner { fill: none; stroke: var(--fb); stroke-width: 1.4; stroke-dasharray: 2 5; opacity: .7; }
+.sw-frame .f-choc { fill: none; stroke: #3A1B10; stroke-width: 9; }
+.sw-frame .f-drip { fill: #3A1B10; }
+.sw-badge { position: absolute; top: 4px; left: 4px; z-index: 4; transform: translateZ(60px); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: #3B1E14; background: linear-gradient(135deg, #FFE7A8, #E8B04E); border-radius: 999px; padding: 6px 12px; box-shadow: 0 6px 14px rgba(168, 107, 31, .35); }
+
+.sw-float { position: absolute; left: 50%; top: 46%; width: 60%; aspect-ratio: 1; translate: -50% -50%; z-index: 2; transform: translateZ(40px);
+  animation: sw-bob 5s ease-in-out infinite; animation-delay: calc(var(--i) * -1.4s); transition: transform .45s cubic-bezier(.2, .8, .2, 1); }
+.sw-card:hover .sw-float { transform: translateZ(80px) scale(1.08) translateY(-10px); }
+@keyframes sw-bob { 50% { translate: -50% calc(-50% - 9px); } }
+.sw-img { width: 100%; height: 100%; object-fit: contain;
+  filter: drop-shadow(0 16px 14px rgba(60, 30, 20, .32)) drop-shadow(0 3px 3px rgba(60, 30, 20, .25)) saturate(1.15) contrast(1.08) brightness(1.03); transition: filter .4s; }
+.sw-card:hover .sw-img { filter: drop-shadow(0 26px 20px rgba(60, 30, 20, .3)) drop-shadow(0 4px 4px rgba(60, 30, 20, .22)) saturate(1.22) contrast(1.1) brightness(1.06); }
+.sw-gloss { position: absolute; inset: 0; pointer-events: none; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  background: radial-gradient(circle at 32% 22%, rgba(255, 255, 255, .26), rgba(255, 255, 255, 0) 36%), linear-gradient(115deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, .34) 49%, rgba(255, 255, 255, 0) 58%);
+  background-size: 100% 100%, 260% 100%; background-position: 0 0, 120% 0; transition: background-position 1s ease; }
+.sw-card:hover .sw-gloss { background-position: 0 0, -40% 0; }
+.sw-shadow { position: absolute; left: 50%; bottom: 3%; width: 54%; height: 9%; translate: -50% 0; border-radius: 50%; z-index: 1;
+  background: radial-gradient(ellipse, rgba(70, 36, 22, .42), transparent 70%); animation: sw-shadow 5s ease-in-out infinite; animation-delay: calc(var(--i) * -1.4s); }
+@keyframes sw-shadow { 50% { scale: .82; opacity: .7; } }
+
+.sw-deco { position: absolute; inset: 0; z-index: 3; pointer-events: none; transform: translateZ(60px); }
+.d { position: absolute; width: var(--sz); height: var(--sz); rotate: var(--r); animation: sw-deco 4.5s ease-in-out var(--d) infinite alternate; transition: scale .4s; }
+.sw-card:hover .d { scale: 1.15; }
+@keyframes sw-deco { from { translate: 0 -5px; } to { translate: 0 6px; } }
+.d-svg { filter: drop-shadow(0 4px 4px rgba(60, 30, 20, .3)); }
+.d-chunk { border-radius: 4px; background: linear-gradient(135deg, #9A5634, #4A2414 60%, #2E140B); box-shadow: inset 1px 1px 0 rgba(255, 255, 255, .3), 0 4px 6px rgba(60, 30, 20, .35); }
+.d-chip { width: var(--sz); height: calc(var(--sz) * 1.15); border-radius: 50% 50% 46% 46% / 64% 64% 36% 36%;
+  background: radial-gradient(circle at 35% 28%, #A0603C, #4A2414 55%, #2A1209); box-shadow: 0 4px 6px rgba(60, 30, 20, .35); }
+.d-crumb { border-radius: 42% 58% 50% 46% / 50% 40% 60% 50%; background: radial-gradient(circle at 35% 30%, #FFE3A0, #E3A748 60%, #A86B1F); box-shadow: 0 3px 4px rgba(120, 70, 20, .3); }
+.bgd.d-chip { height: calc(var(--sz) * 1.15); border-radius: 50% 50% 46% 46% / 64% 64% 36% 36%; background: radial-gradient(circle at 35% 28%, #A0603C, #4A2414 55%, #2A1209); box-shadow: 0 4px 6px rgba(60, 30, 20, .3); }
+.bgd.d-crumb { border-radius: 42% 58% 50% 46% / 50% 40% 60% 50%; background: radial-gradient(circle at 35% 30%, #FFE3A0, #E3A748 60%, #A86B1F); }
+
+.sw-body { display: grid; gap: 6px; text-align: center; padding: 6px 6px 16px; }
+.sw-body h3 { margin: 0; font: 400 24px/1.15 var(--f-display); color: #3B1E14; }
+.sw-body p { margin: 0 auto; max-width: 30ch; font-size: 14px; line-height: 1.5; color: #7A5A48; }
+.sw-price { font-size: 20px; font-weight: 600; color: #A86B1F; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.sw-price small { font-size: 13px; font-weight: 400; color: #8A6A55; }
+.sw-order { margin-top: auto; width: 100%; min-height: 52px; border: 0; border-radius: 999px; font-size: 15px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: #FFF4E2; background: linear-gradient(180deg, #6B3A22, #43200F); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 10px 22px -8px rgba(67, 32, 15, .7); transition: transform .2s, box-shadow .2s; }
+.sw-order:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 0 0 2px #E8B04E, 0 14px 26px -8px rgba(67, 32, 15, .75); }
+.sw-order:focus-visible { outline: 2px solid #E8B04E; outline-offset: 3px; }
+@media (max-width: 1000px) { .sweets-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .sweets-inner { padding-block: 64px 80px; }
+  .sweets-head { margin-bottom: 36px; }
+  .sweets-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .sw-card { --i: 0 !important; }
+}
+@media (prefers-reduced-motion: reduce) { .sw-float, .sw-shadow, .d, .bgd { animation: none !important; } }
+
 /* Responsive */
 @media (max-width: 1000px) {
   nav.main { display: none; }
@@ -454,11 +540,11 @@ footer .logo small { color: inherit; opacity: .6; }
         <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
       <nav class="main" aria-label="Main">
-        <a href="#shop" data-nav="" aria-current="page">Best Sellers</a>
-        <a href="#shop" data-nav="Brownies">Brownies</a>
-        <a href="#shop" data-nav="Cookies">Cookies</a>
-        <a href="#shop" data-nav="Cakes">Cakes</a>
-        <a href="#shop" data-nav="Sweets">Sweets</a>
+        <a href="#collection" data-nav="" aria-current="page">Best Sellers</a>
+        <a href="#collection" data-nav="Brownies">Brownies</a>
+        <a href="#collection" data-nav="Cookies">Cookies</a>
+        <a href="#collection" data-nav="Cakes">Cakes</a>
+        <a href="#collection" data-nav="Sweets">Sweets</a>
       </nav>
     </div>
     <a class="logo" href="#" aria-label="Haju Bliss home"><img class="mark" src="images/logo.png" alt="" width="54" height="54"><span class="word"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></span></a>
@@ -498,56 +584,30 @@ footer .logo small { color: inherit; opacity: .6; }
       </button>
     </div>
   </section>
-  <div class="wrap">
-    <div class="section-title" id="treats">
-      <h2>All treats</h2>
-      <div class="tabs" role="group" aria-label="Category" id="tabs"></div>
+  <section class="sweets" id="collection" aria-labelledby="sweetsTitle">
+    <div class="sweets-bg" id="sweetsBg" aria-hidden="true"></div>
+    <div class="sweets-inner">
+      <header class="sweets-head reveal">
+        <span class="sweets-eyebrow">Our Sweet Collection</span>
+        <h2 id="sweetsTitle">Not Just Desserts.<br><em>It's Happiness In Every Bite.</em></h2>
+        <p>Haju__bliss – Made With Love, Baked For You.</p>
+      </header>
+      <div class="sweets-grid" id="sweetsGrid"></div>
     </div>
-
-    <div class="toolbar">
-      <div class="left">
-        <button class="btn-line" type="button" id="filterBtn" aria-controls="rail" aria-expanded="true">
-          <svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span id="filterLabel">Hide filters</span>
-        </button>
-        <span class="result-count" id="resultCount" aria-live="polite"></span>
-      </div>
-      <div class="right">
-        <label class="sort"><span>Sort by</span>
-          <select id="sort">
-            <option value="best">Best selling</option>
-            <option value="low">Price, low to high</option>
-            <option value="high">Price, high to low</option>
-            <option value="az">Alphabetically, A–Z</option>
-          </select>
-        </label>
-      </div>
-    </div>
-    <div class="active-filters" id="activeFilters"></div>
-
-    <div class="shop" id="shop">
-      <aside class="rail" id="rail" aria-label="Filters">
-        <div class="rail-head"><h2>Filter</h2><button class="icon-btn" type="button" id="railClose" aria-label="Close filters"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-        <details class="facet" open><summary>Category</summary><div class="opts" id="fCat"></div></details>
-        <details class="facet" open><summary>Price</summary>
-          <div class="range">
-            <label for="fPrice">Up to <output id="fPriceOut"></output></label>
-            <input type="range" id="fPrice" min="50" max="3300" step="50">
-          </div>
-        </details>
-        <details class="facet" open><summary>Show</summary>
-          <div class="opts">
-            <label class="check"><input type="checkbox" id="fBest"> Best sellers only</label>
-            <label class="check"><input type="checkbox" id="fChoc"> Chocolate</label>
-          </div>
-        </details>
-        <div style="padding-top:16px"><button class="btn" type="button" id="railApply" style="width:100%">Show results</button></div>
-      </aside>
-
-      <section aria-label="Products">
-        <div class="grid" id="products"></div>
-      </section>
-    </div>
-  </div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="g-choc" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#9A5634"/><stop offset=".55" stop-color="#5A2C18"/><stop offset="1" stop-color="#2E140B"/></radialGradient>
+        <radialGradient id="g-cashew" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFF1CF"/><stop offset=".6" stop-color="#EAC484"/><stop offset="1" stop-color="#B98A45"/></radialGradient>
+        <radialGradient id="g-bean" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#9B6440"/><stop offset=".6" stop-color="#5A341E"/><stop offset="1" stop-color="#2A160C"/></radialGradient>
+        <radialGradient id="g-gold" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFE7A8"/><stop offset=".6" stop-color="#E8B04E"/><stop offset="1" stop-color="#A86B1F"/></radialGradient>
+        <symbol id="i-cashew" viewBox="0 0 24 18"><path d="M3 11C1 5 8 0 15 2c6 2 8 9 4 12-3 2-5-2-8-2s-6 5-8-1Z" fill="url(#g-cashew)"/><path d="M6 8c2-3 7-4 10-2" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.4" stroke-linecap="round"/></symbol>
+        <symbol id="i-bean" viewBox="0 0 20 26"><ellipse cx="10" cy="13" rx="9" ry="12" fill="url(#g-bean)"/><path d="M10 2c-4 6 4 16 0 22" fill="none" stroke="#1E0E06" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6.5" cy="8" rx="2" ry="3.5" fill="#fff" fill-opacity=".22"/></symbol>
+        <symbol id="i-splash" viewBox="0 0 60 50"><path d="M30 6c6 0 7 8 13 9s12-3 13 4-7 7-6 13 6 9 1 13-10-1-15 1-7 6-12 3 0-9-5-12-12 0-12-7 8-6 9-11-3-11 3-13 7 0 11 0Z" fill="url(#g-choc)"/><circle cx="8" cy="8" r="3.5" fill="url(#g-choc)"/><circle cx="54" cy="6" r="2.5" fill="url(#g-choc)"/><ellipse cx="24" cy="18" rx="7" ry="3.5" fill="#fff" fill-opacity=".25" transform="rotate(-20 24 18)"/></symbol>
+        <symbol id="i-drop" viewBox="0 0 16 22"><path d="M8 1C10 7 15 10 15 15a7 7 0 0 1-14 0C1 10 6 7 8 1Z" fill="url(#g-choc)"/><ellipse cx="5.5" cy="14" rx="1.6" ry="2.6" fill="#fff" fill-opacity=".35"/></symbol>
+        <symbol id="i-spark" viewBox="0 0 20 20"><path d="M10 0c1 6 4 9 10 10-6 1-9 4-10 10-1-6-4-9-10-10C6 9 9 6 10 0Z" fill="url(#g-gold)"/></symbol>
+      </defs>
+    </svg>
+  </section>
 
   <section class="promises" aria-label="How we bake">
     <div class="wrap">
@@ -566,7 +626,7 @@ footer .logo small { color: inherit; opacity: .6; }
         <div class="logo"><img class="mark" src="images/logo.png" alt="Haju Bliss logo" width="92" height="92" loading="lazy"><span class="word"><b>Haju <em>Bliss</em></b><small>Homemade bakes · Negombo</small></span></div>
         <p style="max-width:40ch;opacity:.8;font-size:14px;margin:16px 0 0">Brownies, cookies, cakes and traditional sweets, baked fresh at home in Negombo, Sri Lanka. Place your order here and we'll confirm it by message.</p>
       </div>
-      <div><h4>Shop</h4><ul><li><a href="#shop" data-nav="">Best Sellers</a></li><li><a href="#shop" data-nav="Brownies">Brownies</a></li><li><a href="#shop" data-nav="Cookies">Cookies</a></li><li><a href="#shop" data-nav="Cakes">Cakes</a></li><li><a href="#shop" data-nav="Sweets">Sweets</a></li></ul></div>
+      <div><h4>Shop</h4><ul><li><a href="#collection" data-nav="">Best Sellers</a></li><li><a href="#collection" data-nav="Brownies">Brownies</a></li><li><a href="#collection" data-nav="Cookies">Cookies</a></li><li><a href="#collection" data-nav="Cakes">Cakes</a></li><li><a href="#collection" data-nav="Sweets">Sweets</a></li></ul></div>
       <div><h4>Order &amp; contact</h4><ul><li>Negombo, Sri Lanka</li><li><a href="https://wa.me/94782897650" target="_blank" rel="noopener">WhatsApp: <span style="user-select:all">078 289 7650</span></a></li><li><a href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">Instagram: @haju__bliss</a></li></ul></div>
     </div>
     <div class="foot-base">
@@ -589,11 +649,11 @@ footer .logo small { color: inherit; opacity: .6; }
   <div class="drawer-head"><h2>Menu</h2><button class="icon-btn" type="button" id="menuClose" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="drawer-body">
     <ul style="list-style:none;margin:0;padding:0;display:grid;gap:6px;font:400 26px/1.5 var(--f-display)">
-      <li><a href="#shop" data-nav="" style="text-decoration:none">Best Sellers</a></li>
-      <li><a href="#shop" data-nav="Brownies" style="text-decoration:none">Brownies</a></li>
-      <li><a href="#shop" data-nav="Cookies" style="text-decoration:none">Cookies</a></li>
-      <li><a href="#shop" data-nav="Cakes" style="text-decoration:none">Cakes</a></li>
-      <li><a href="#shop" data-nav="Sweets" style="text-decoration:none">Sweets</a></li>
+      <li><a href="#collection" data-nav="" style="text-decoration:none">Best Sellers</a></li>
+      <li><a href="#collection" data-nav="Brownies" style="text-decoration:none">Brownies</a></li>
+      <li><a href="#collection" data-nav="Cookies" style="text-decoration:none">Cookies</a></li>
+      <li><a href="#collection" data-nav="Cakes" style="text-decoration:none">Cakes</a></li>
+      <li><a href="#collection" data-nav="Sweets" style="text-decoration:none">Sweets</a></li>
     </ul>
   </div>
 </aside>
@@ -628,13 +688,13 @@ footer .logo small { color: inherit; opacity: .6; }
   const PRODUCTS = [
     { id: 1,  name: "Lava Brownie",              cat: "Brownies", price: 350,  unit: "each",     best: 1,  choc: true,  img: "images/lava-brownie.jpg?v=3",             desc: "A rich chocolate brownie with a molten centre that flows when you cut in. Best enjoyed warm." },
     { id: 2,  name: "Chocolate Loaded Cookies",  cat: "Cookies",  price: 250,  unit: "each",     best: 2,  choc: true,  img: "images/chocolate-loaded-cookies.jpg?v=3", desc: "Thick, chewy cookies packed with chocolate chunks and a gooey chocolate middle." },
-    { id: 3,  name: "Fudge Brownie",             cat: "Brownies", price: 200,  unit: "each",     best: 3,  choc: true,  img: "images/fudge-brownie.jpg?v=3",            desc: "Dense, fudgy squares with a crackly top and pockets of melted chocolate." },
+    { id: 3,  name: "Brownie",                   cat: "Brownies", price: 200,  unit: "each",     best: 3,  choc: true,  img: "images/fudge-brownie.jpg?v=3",            desc: "Dense, fudgy squares with a crackly top and pockets of melted chocolate." },
     { id: 4,  name: "Cookies",                   cat: "Cookies",  price: 100,  unit: "each",     best: 4,  choc: true,  img: "images/cookies.jpg?v=3",                  desc: "Classic golden chocolate chip cookies, crisp at the edge and soft in the middle." },
     { id: 5,  name: "Chocolate Cake",            cat: "Cakes",    price: 3300, unit: "1 kg"    , best: 5,  choc: true,  img: "images/chocolate-cake.jpg?v=3",           desc: "A moist, deep chocolate sponge for birthdays, tea time and everything in between." },
     { id: 6,  name: "Butter Cake with Cashews",  cat: "Cakes",    price: 2800, unit: "1 kg"    , best: 6,  choc: false, img: "images/butter-cake-cashew.jpg?v=3",       desc: "Our soft butter cake topped with roasted cashew nuts." },
     { id: 7,  name: "Butter Cake",               cat: "Cakes",    price: 2200, unit: "1 kg",     best: 7,  choc: false, img: "images/butter-cake.jpg?v=3",              desc: "Golden, buttery and light. The Sri Lankan tea-time classic." },
     { id: 8,  name: "Coffee Cake",               cat: "Cakes",    price: 2800, unit: "1 kg"    , best: 8,  choc: false, img: "images/coffee-cake.jpg?v=3",              desc: "A tender cake flavoured with real coffee. Lovely with a cup of tea." },
-    { id: 10, name: "Yanakatha",                 cat: "Sweets",   price: 50,   unit: "each",     best: 10, choc: false, img: "images/yanakatha.jpg?v=3",                desc: "A traditional sweet, freshly made and sugar-dusted." }
+    { id: 10, name: "Butter Cookies",            cat: "Cookies",  price: 50,   unit: "each",     best: 10, choc: false, img: "images/yanakatha.jpg?v=3",                desc: "A traditional sweet, freshly made and sugar-dusted." }
   ];
   const BEST_COUNT = 2; // how many top items get the "Best seller" badge and the spotlight
   const CATS = ["Brownies", "Cookies", "Cakes", "Sweets"];
@@ -653,113 +713,126 @@ footer .logo small { color: inherit; opacity: .6; }
   const img = (p, extra = 'loading="lazy"') => `<img src="${p.img}" alt="${esc(p.name)}" ${extra}>`;
 
   /* ---------- State ---------- */
-  const state = { cats: new Set(), max: MAX, best: false, choc: false, sort: store.get("sort", "best"), rail: store.get("rail", true), qty: {} };
   let cart = store.get("cart", []).filter(l => byId(l.id));
 
-  /* ---------- Filters ---------- */
-  $("#fCat").innerHTML = CATS.map((c, i) => `<label class="check"><input type="checkbox" id="cat${i}" value="${c}"> ${c} <em>${PRODUCTS.filter(p => p.cat === c).length}</em></label>`).join("");
-  $("#tabs").innerHTML = `<button type="button" data-tab="">All</button>` + CATS.map(c => `<button type="button" data-tab="${c}">${c}</button>`).join("");
-  const price = $("#fPrice"); price.max = MAX;
-
-  $("#fCat").addEventListener("change", e => { e.target.checked ? state.cats.add(e.target.value) : state.cats.delete(e.target.value); refresh(); });
-  $("#tabs").addEventListener("click", e => { const b = e.target.closest("button"); if (b) setCat(b.dataset.tab); });
-  price.addEventListener("input", () => { state.max = +price.value; refresh(); });
-  $("#fBest").addEventListener("change", e => { state.best = e.target.checked; refresh(); });
-  $("#fChoc").addEventListener("change", e => { state.choc = e.target.checked; refresh(); });
-  function setCat(c) { state.cats.clear(); if (c) state.cats.add(c); refresh(); }
-  document.querySelectorAll("[data-nav]").forEach(a => a.addEventListener("click", () => { closeAll(); setCat(a.dataset.nav); }));
-
-  function filtered() {
-    const list = PRODUCTS.filter(p =>
-      (!state.cats.size || state.cats.has(p.cat)) && p.price <= state.max && (!state.best || isBest(p)) && (!state.choc || p.choc));
-    const by = { best: (a, b) => a.best - b.best, low: (a, b) => a.price - b.price, high: (a, b) => b.price - a.price, az: (a, b) => a.name.localeCompare(b.name) };
-    return list.sort(by[state.sort]);
+  /* ---------- Our Sweet Collection ---------- */
+  // frame: roundsq | heart | ring | ringchoc | plate | bigplate | circle ; deco: what floats around the sweet
+  const SWEETS = [
+    { id: 3,  cut: "fudge-brownie",            frame: "roundsq",  fill: ["#FFF3E2", "#E8C9A2"], line: ["#F0C35C", "#4A2414"], glow: "rgba(122, 70, 30, .55)", glow2: "rgba(240, 195, 92, .55)", deco: "chunk",  desc: "Dense, fudgy squares with a crackly top and pockets of melted chocolate." },
+    { id: 1,  cut: "lava-brownie",             frame: "heart",    fill: ["#FCE9DD", "#E7B79C"], line: ["#7A3B22", "#2E140B"], glow: "rgba(90, 40, 20, .7)",   glow2: "rgba(200, 110, 60, .5)",  deco: "drip",   desc: "Cut in and watch the molten chocolate centre flow. Best enjoyed warm." },
+    { id: 4,  cut: "cookies",                  frame: "ring",     fill: ["#FFF8E8", "#F6E2B8"], line: ["#F8D58A", "#C98B2B"], glow: "rgba(242, 196, 109, .6)", glow2: "rgba(255, 226, 160, .6)", deco: "crumb",  desc: "Golden chocolate chip cookies, crisp at the edge and soft in the middle." },
+    { id: 2,  cut: "chocolate-loaded-cookies", frame: "ringchoc", fill: ["#FBEBD7", "#E9C9A0"], line: ["#F2C46D", "#B47E2A"], glow: "rgba(46, 20, 11, .6)",   glow2: "rgba(242, 196, 109, .45)", deco: "chip",   desc: "Thick, chewy and packed with chocolate chunks and a gooey middle." },
+    { id: 7,  cut: "butter-cake",              frame: "roundsq",  fill: ["#FFFBEA", "#FBE6A6"], line: ["#FFF1C2", "#F2CF6A"], glow: "rgba(250, 214, 110, .65)", glow2: "rgba(255, 244, 205, .8)", deco: "spark",  desc: "Soft, fluffy and buttery. The Sri Lankan tea-time classic." },
+    { id: 6,  cut: "butter-cake-cashew",       frame: "plate",    fill: ["#FFF2CF", "#E7BE68"], line: ["#F7D88A", "#A87420"], glow: "rgba(232, 176, 78, .65)", glow2: "rgba(255, 215, 120, .55)", deco: "cashew", desc: "Our butter cake crowned with roasted cashew nuts." },
+    { id: 5,  cut: "chocolate-cake",           frame: "bigplate", fill: ["#7A4630", "#3A1D12"], line: ["#F0C35C", "#8A5A1E"], glow: "rgba(58, 29, 18, .65)",  glow2: "rgba(240, 195, 92, .5)",  deco: "splash", desc: "Rich, moist dark chocolate sponge for birthdays and every celebration." },
+    { id: 8,  cut: "coffee-cake",              frame: "roundsq",  fill: ["#EBD3BA", "#A87A55"], line: ["#C79A6E", "#5A3A22"], glow: "rgba(111, 74, 47, .6)",  glow2: "rgba(199, 154, 110, .5)", deco: "bean",   desc: "A tender cake made with real coffee. Perfect with your evening tea." },
+    { id: 10, cut: "yanakatha",                frame: "circle",   fill: ["#FFFCF4", "#F6E8CB"], line: ["#FFF6E2", "#EBD3A4"], glow: "rgba(232, 196, 130, .55)", glow2: "rgba(255, 246, 226, .9)", deco: "crumb",  desc: "Melt-in-the-mouth butter cookies with a light sugar sparkle." }
+  ];
+  const FRAME = {
+    roundsq: '<rect x="18" y="18" width="164" height="164" rx="40" class="f-shape"/><rect x="30" y="30" width="140" height="140" rx="30" class="f-inner"/>',
+    heart: '<path class="f-shape" d="M100 178C38 132 10 100 18 64 26 28 72 18 100 52 128 18 174 28 182 64 190 100 162 132 100 178Z"/><path class="f-drip" d="M52 140c0 10 6 16 6 24a5 5 0 0 1-10 0c0-6 2-10 4-24ZM140 148c0 8 5 12 5 18a4 4 0 0 1-8 0c0-5 2-8 3-18ZM100 176c0 8 4 12 4 17a4 4 0 0 1-8 0c0-5 2-9 4-17Z"/>',
+    ring: '<circle cx="100" cy="100" r="80" class="f-shape"/><circle cx="100" cy="100" r="68" class="f-inner"/>',
+    ringchoc: '<circle cx="100" cy="100" r="80" class="f-shape"/><circle cx="100" cy="100" r="86" class="f-choc"/><path class="f-drip" d="M44 150c0 12 6 18 6 26a5 5 0 0 1-10 0c0-6 2-12 4-26ZM150 156c0 9 5 13 5 19a4 4 0 0 1-8 0c0-5 2-9 3-19Z"/>',
+    plate: '<ellipse cx="100" cy="104" rx="88" ry="84" class="f-shape"/><ellipse cx="100" cy="104" rx="70" ry="66" class="f-inner"/>',
+    bigplate: '<circle cx="100" cy="100" r="92" class="f-shape"/><circle cx="100" cy="100" r="76" class="f-inner"/>',
+    circle: '<circle cx="100" cy="100" r="84" class="f-shape"/>'
+  };
+  const DECO = {
+    chunk: [[8, 18, 18, -20], [84, 12, 14, 25], [88, 70, 16, 40], [4, 74, 12, -35]],
+    drip: [[6, 30, 16, 0], [86, 20, 13, 0], [90, 66, 10, 0]],
+    crumb: [[10, 16, 9, 0], [84, 14, 7, 0], [90, 60, 10, 0], [6, 70, 8, 0], [20, 88, 6, 0], [76, 86, 7, 0]],
+    chip: [[8, 14, 15, -15], [86, 18, 13, 30], [90, 66, 14, 10], [6, 70, 12, -25], [80, 88, 10, 0]],
+    spark: [[10, 16, 16, 0], [86, 14, 12, 0], [88, 72, 14, 0], [8, 76, 10, 0]],
+    cashew: [[6, 18, 26, -25], [84, 12, 22, 30], [86, 70, 24, 160], [4, 72, 20, 110]],
+    splash: [[2, 10, 46, -15], [80, 70, 38, 25], [88, 14, 12, 0]],
+    bean: [[8, 16, 18, -30], [86, 14, 16, 40], [88, 70, 18, 20], [6, 72, 15, -50]]
+  };
+  function decoHTML(kind) {
+    return (DECO[kind] || []).map(([x, y, sz, r], i) => {
+      const style = `left:${x}%;top:${y}%;--sz:${sz}px;--r:${r}deg;--d:${(i * .7).toFixed(1)}s`;
+      if (kind === "cashew") return `<svg class="d d-svg" style="${style}" viewBox="0 0 24 18"><use href="#i-cashew"/></svg>`;
+      if (kind === "bean") return `<svg class="d d-svg" style="${style}" viewBox="0 0 20 26"><use href="#i-bean"/></svg>`;
+      if (kind === "splash") return `<svg class="d d-svg" style="${style}" viewBox="0 0 60 50"><use href="#i-splash"/></svg>`;
+      if (kind === "drip") return `<svg class="d d-svg" style="${style}" viewBox="0 0 16 22"><use href="#i-drop"/></svg>`;
+      if (kind === "spark") return `<svg class="d d-svg" style="${style}" viewBox="0 0 20 20"><use href="#i-spark"/></svg>`;
+      return `<i class="d d-${kind}" style="${style}"></i>`;
+    }).join("");
   }
-
-  /* ---------- Render ---------- */
-  function cardHTML(p) {
-    const q = state.qty[p.id] || 1;
-    return `<article class="card" data-id="${p.id}">
-      <div class="media" data-view="${p.id}">
-        <div class="badges">${isBest(p) ? `<span class="badge">Best seller</span>` : ""}${p.cat === "Cakes" ? `<span class="badge soft">Order 1 day ahead</span>` : ""}</div>
-        ${img(p)}
-      </div>
-      <span class="cat">${p.cat}</span>
-      <h3><button type="button" data-view="${p.id}">${esc(p.name)}</button></h3>
-      <div class="price">${fmt(p.price)} <small>${p.unit}</small></div>
-      <div class="buy">
-        <div class="qty" role="group" aria-label="Quantity for ${esc(p.name)}">
-          <button type="button" data-step="-1" data-for="${p.id}" aria-label="Decrease">−</button><output>${q}</output><button type="button" data-step="1" data-for="${p.id}" aria-label="Increase">+</button>
+  function sweetHTML(cfg, i) {
+    const p = byId(cfg.id), u = `f${cfg.id}`, src = `images/3d/${cfg.cut}.webp?v=1`;
+    return `<article class="sw-card reveal" data-id="${p.id}" style="--glow:${cfg.glow};--glow2:${cfg.glow2};--i:${i % 3}">
+      <div class="sw-stage" data-view="${p.id}" role="button" tabindex="0" aria-label="See details for ${esc(p.name)}">
+        ${isBest(p) ? `<span class="sw-badge">★ Best Seller</span>` : ""}
+        <svg class="sw-frame" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <radialGradient id="${u}a" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="${cfg.fill[0]}"/><stop offset="1" stop-color="${cfg.fill[1]}"/></radialGradient>
+            <linearGradient id="${u}b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${cfg.line[0]}"/><stop offset="1" stop-color="${cfg.line[1]}"/></linearGradient>
+          </defs>
+          <g style="--fa:url(#${u}a);--fb:url(#${u}b)">${FRAME[cfg.frame]}</g>
+        </svg>
+        <div class="sw-deco" aria-hidden="true">${decoHTML(cfg.deco)}</div>
+        <div class="sw-float">
+          <img class="sw-img" src="${src}" alt="${esc(p.name)}" loading="lazy" width="620" height="620">
         </div>
-        <button class="add" type="button" data-add="${p.id}">Add · ${fmt(p.price * q)}</button>
+        <span class="sw-shadow" aria-hidden="true"></span>
       </div>
+      <div class="sw-body">
+        <h3>${esc(p.name)}</h3>
+        <p>${esc(cfg.desc)}</p>
+        <div class="sw-price">${fmt(p.price)} <small>${p.unit === "each" ? "each" : p.unit}</small></div>
+      </div>
+      <button class="sw-order" type="button" data-order="${p.id}">Order Now</button>
     </article>`;
   }
-  function render() {
-    const list = filtered();
-    $("#products").innerHTML = list.length ? list.map(cardHTML).join("") :
-      `<div class="empty"><h3>No treats match</h3><p>Try removing a filter.</p><button class="btn ghost" type="button" data-clear>Clear all filters</button></div>`;
-    $("#resultCount").textContent = `${list.length} treat${list.length === 1 ? "" : "s"}`;
-    document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-pressed",
-      b.dataset.tab ? state.cats.size === 1 && state.cats.has(b.dataset.tab) : state.cats.size === 0));
-    const pills = [];
-    state.cats.forEach(c => pills.push([`cat:${c}`, c]));
-    if (state.max < MAX) pills.push(["max", `Up to ${fmt(state.max)}`]);
-    if (state.best) pills.push(["best", "Best sellers"]);
-    if (state.choc) pills.push(["choc", "Chocolate"]);
-    $("#activeFilters").innerHTML = pills.length ? pills.map(([k, l]) => `<button class="pill" type="button" data-rm="${esc(k)}">${esc(l)} <span aria-hidden="true">×</span><span class="sr">Remove filter</span></button>`).join("") + `<button class="linkish" type="button" data-clear>Clear all</button>` : "";
-  }
-  function syncControls() {
-    document.querySelectorAll("#fCat input").forEach(i => i.checked = state.cats.has(i.value));
-    price.value = state.max; $("#fPriceOut").textContent = fmt(state.max);
-    $("#fBest").checked = state.best; $("#fChoc").checked = state.choc;
-  }
-  function refresh() { syncControls(); render(); }
-  function clearAll() { state.cats.clear(); state.max = MAX; state.best = state.choc = false; refresh(); }
-
-  $("#activeFilters").addEventListener("click", e => {
-    const b = e.target.closest("button"); if (!b) return;
-    if (b.hasAttribute("data-clear")) return clearAll();
-    const [k, v] = b.dataset.rm.split(/:(.*)/s);
-    ({ cat: () => state.cats.delete(v), max: () => state.max = MAX, best: () => state.best = false, choc: () => state.choc = false })[k]();
-    refresh();
+  $("#sweetsGrid").innerHTML = SWEETS.map(sweetHTML).join("");
+  $("#sweetsGrid").addEventListener("click", e => {
+    const o = e.target.closest("[data-order]");
+    if (o) { addToCart(byId(o.dataset.order), 1); step = "bag"; renderCart(); openDrawer("#cart"); return; }
+    const v = e.target.closest("[data-view]"); if (v) openQV(+v.dataset.view);
   });
-  $("#products").addEventListener("click", e => {
-    const t = e.target.closest("[data-clear],[data-step],[data-add],[data-view]"); if (!t) return;
-    if (t.hasAttribute("data-clear")) return clearAll();
-    if (t.dataset.step) {
-      const id = t.dataset.for; state.qty[id] = Math.max(1, Math.min(50, (state.qty[id] || 1) + +t.dataset.step));
-      t.closest(".card").outerHTML = cardHTML(byId(id));
-      document.querySelector(`.card[data-id="${id}"] [data-step="${t.dataset.step}"]`)?.focus();
-      return;
-    }
-    if (t.dataset.add) { const p = byId(t.dataset.add); addToCart(p, state.qty[p.id] || 1); state.qty[p.id] = 1; t.closest(".card").outerHTML = cardHTML(p); return; }
-    if (t.dataset.view) openQV(+t.dataset.view);
+  $("#sweetsGrid").addEventListener("keydown", e => {
+    const v = e.target.closest(".sw-stage"); if (v && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openQV(+v.dataset.view); }
   });
-
-  $("#sort").value = state.sort;
-  $("#sort").addEventListener("change", e => { state.sort = e.target.value; store.set("sort", state.sort); render(); });
-
-  /* Filter rail */
-  const mobile = () => matchMedia("(max-width: 860px)").matches;
-  function setRail(on) {
-    state.rail = on; store.set("rail", on);
-    $("#shop").classList.toggle("no-rail", !on);
-    $("#filterLabel").textContent = mobile() ? "Filter" : on ? "Hide filters" : "Show filters";
-    $("#filterBtn").setAttribute("aria-expanded", on);
+  // Background: floating chips, crumbs, splashes, beans and cashews
+  (() => {
+    let sd = 41; const r = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+    const kinds = ["chip", "crumb", "splash", "bean", "cashew", "chip", "crumb", "bean"];
+    $("#sweetsBg").innerHTML = Array.from({ length: 26 }, (_, i) => {
+      const k = kinds[i % kinds.length], x = (r() * 96).toFixed(1), y = (r() * 96).toFixed(1);
+      const sz = { chip: 12 + r() * 12, crumb: 6 + r() * 8, splash: 40 + r() * 40, bean: 14 + r() * 10, cashew: 20 + r() * 14 }[k];
+      const far = r() < .35;
+      const style = `left:${x}%;top:${y}%;--sz:${sz.toFixed(0)}px;--r:${Math.round(r() * 360)}deg;--d:${(-r() * 9).toFixed(1)}s;--t:${(7 + r() * 6).toFixed(1)}s;${far ? "filter:blur(1.5px);opacity:.55;" : ""}`;
+      if (k === "cashew") return `<svg class="bgd" style="${style}" viewBox="0 0 24 18"><use href="#i-cashew"/></svg>`;
+      if (k === "bean") return `<svg class="bgd" style="${style}" viewBox="0 0 20 26"><use href="#i-bean"/></svg>`;
+      if (k === "splash") return `<svg class="bgd" style="${style};opacity:.5" viewBox="0 0 60 50"><use href="#i-splash"/></svg>`;
+      return `<i class="bgd d-${k}" style="${style}"></i>`;
+    }).join("");
+  })();
+  // 3D tilt on hover (mouse / trackpad)
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches && matchMedia("(pointer: fine)").matches) {
+    document.querySelectorAll(".sw-card").forEach(card => {
+      card.addEventListener("pointermove", e => {
+        const b = card.getBoundingClientRect(), x = (e.clientX - b.left) / b.width - .5, y = (e.clientY - b.top) / b.height - .5;
+        card.style.setProperty("--rx", `${(-y * 10).toFixed(2)}deg`);
+        card.style.setProperty("--ry", `${(x * 12).toFixed(2)}deg`);
+        card.style.setProperty("--gx", `${((x + .5) * 100).toFixed(0)}%`);
+      });
+      card.addEventListener("pointerleave", () => { card.style.setProperty("--rx", "0deg"); card.style.setProperty("--ry", "0deg"); });
+    });
   }
-  $("#filterBtn").addEventListener("click", () => { if (mobile()) { $("#rail").classList.add("on"); scrim(true); } else setRail(!state.rail); });
-  const closeRail = () => { $("#rail").classList.remove("on"); scrim(false); };
-  $("#railClose").addEventListener("click", closeRail);
-  $("#railApply").addEventListener("click", () => { if (mobile()) closeRail(); else $("#products").scrollIntoView({ behavior: "smooth" }); });
-  setRail(state.rail);
+  // Fade in on scroll (only things that start below the fold, so nothing is hidden at rest)
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.remove("pre"); io.unobserve(en.target); } }), { threshold: .12 });
+    document.querySelectorAll(".reveal").forEach(el => { if (el.getBoundingClientRect().top > innerHeight * .95) { el.classList.add("pre"); io.observe(el); } });
+  }
+  document.querySelectorAll("[data-nav]").forEach(a => a.addEventListener("click", () => closeAll()));
 
   /* ---------- Overlays ---------- */
   function scrim(on) { $("#scrim").classList.toggle("on", on); document.body.style.overflow = on ? "hidden" : ""; }
   function openDrawer(id) { const d = $(id); d.classList.add("on"); d.setAttribute("aria-hidden", "false"); scrim(true); d.querySelector("button")?.focus(); }
   function closeAll() {
     ["#cart", "#menu", "#search"].forEach(id => { $(id).classList.remove("on"); $(id).setAttribute("aria-hidden", "true"); });
-    $("#rail").classList.remove("on"); $("#qv").classList.remove("on"); scrim(false);
+    $("#qv").classList.remove("on"); scrim(false);
   }
   $("#scrim").addEventListener("click", closeAll);
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
@@ -985,7 +1058,7 @@ footer .logo small { color: inherit; opacity: .6; }
   paintPlay(); paintSound();
   let vr; addEventListener("resize", () => { clearTimeout(vr); vr = setTimeout(setVideoSource, 250); });
 
-  refresh(); saveCart();
+  saveCart();
 })();
 </script>
 </body>
