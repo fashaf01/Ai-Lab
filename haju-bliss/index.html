@@ -461,8 +461,10 @@ footer .logo small { color: inherit; opacity: .6; }
 .sw-body { display: grid; gap: 6px; text-align: center; padding: 6px 6px 16px; }
 .sw-body h3 { margin: 0; font: 400 24px/1.15 var(--f-display); color: #3B1E14; }
 .sw-body p { margin: 0 auto; max-width: 30ch; font-size: 14px; line-height: 1.5; color: #7A5A48; }
-.sw-price { font-size: 20px; font-weight: 600; color: #A86B1F; font-variant-numeric: tabular-nums; margin-top: 4px; }
-.sw-price small { font-size: 13px; font-weight: 400; color: #8A6A55; }
+.sw-price { justify-self: center; display: inline-flex; align-items: baseline; gap: 6px; margin-top: 6px; padding: 7px 18px; border-radius: 999px;
+  background: linear-gradient(180deg, #FFF3D6, #F6DFAE); border: 1px solid rgba(201, 139, 43, .35); box-shadow: inset 0 1px 0 #fff; font-variant-numeric: tabular-nums; }
+.sw-price span { font-size: 21px; font-weight: 700; color: #7A4A12; }
+.sw-price small { font-size: 13px; font-weight: 500; color: #8A6A55; }
 .sw-order { margin-top: auto; width: 100%; min-height: 52px; border: 0; border-radius: 999px; font-size: 15px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
   color: #FFF4E2; background: linear-gradient(180deg, #6B3A22, #43200F); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 10px 22px -8px rgba(67, 32, 15, .7); transition: transform .2s, box-shadow .2s; }
 .sw-order:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 0 0 2px #E8B04E, 0 14px 26px -8px rgba(67, 32, 15, .75); }
@@ -718,10 +720,10 @@ footer .logo small { color: inherit; opacity: .6; }
   /* ---------- Our Sweet Collection ---------- */
   // frame: roundsq | heart | ring | ringchoc | plate | bigplate | circle ; deco: what floats around the sweet
   const SWEETS = [
-    { id: 3,  cut: "fudge-brownie",            frame: "roundsq",  fill: ["#FFF3E2", "#E8C9A2"], line: ["#F0C35C", "#4A2414"], glow: "rgba(122, 70, 30, .55)", glow2: "rgba(240, 195, 92, .55)", deco: "chunk",  desc: "Dense, fudgy squares with a crackly top and pockets of melted chocolate." },
     { id: 1,  cut: "lava-brownie",             frame: "heart",    fill: ["#FCE9DD", "#E7B79C"], line: ["#7A3B22", "#2E140B"], glow: "rgba(90, 40, 20, .7)",   glow2: "rgba(200, 110, 60, .5)",  deco: "drip",   desc: "Cut in and watch the molten chocolate centre flow. Best enjoyed warm." },
-    { id: 4,  cut: "cookies",                  frame: "ring",     fill: ["#FFF8E8", "#F6E2B8"], line: ["#F8D58A", "#C98B2B"], glow: "rgba(242, 196, 109, .6)", glow2: "rgba(255, 226, 160, .6)", deco: "crumb",  desc: "Golden chocolate chip cookies, crisp at the edge and soft in the middle." },
     { id: 2,  cut: "chocolate-loaded-cookies", frame: "ringchoc", fill: ["#FBEBD7", "#E9C9A0"], line: ["#F2C46D", "#B47E2A"], glow: "rgba(46, 20, 11, .6)",   glow2: "rgba(242, 196, 109, .45)", deco: "chip",   desc: "Thick, chewy and packed with chocolate chunks and a gooey middle." },
+    { id: 3,  cut: "fudge-brownie",            frame: "roundsq",  fill: ["#FFF3E2", "#E8C9A2"], line: ["#F0C35C", "#4A2414"], glow: "rgba(122, 70, 30, .55)", glow2: "rgba(240, 195, 92, .55)", deco: "chunk",  desc: "Dense, fudgy squares with a crackly top and pockets of melted chocolate." },
+    { id: 4,  cut: "cookies",                  frame: "ring",     fill: ["#FFF8E8", "#F6E2B8"], line: ["#F8D58A", "#C98B2B"], glow: "rgba(242, 196, 109, .6)", glow2: "rgba(255, 226, 160, .6)", deco: "crumb",  desc: "Golden chocolate chip cookies, crisp at the edge and soft in the middle." },
     { id: 7,  cut: "butter-cake",              frame: "roundsq",  fill: ["#FFFBEA", "#FBE6A6"], line: ["#FFF1C2", "#F2CF6A"], glow: "rgba(250, 214, 110, .65)", glow2: "rgba(255, 244, 205, .8)", deco: "spark",  desc: "Soft, fluffy and buttery. The Sri Lankan tea-time classic." },
     { id: 6,  cut: "butter-cake-cashew",       frame: "plate",    fill: ["#FFF2CF", "#E7BE68"], line: ["#F7D88A", "#A87420"], glow: "rgba(232, 176, 78, .65)", glow2: "rgba(255, 215, 120, .55)", deco: "cashew", desc: "Our butter cake crowned with roasted cashew nuts." },
     { id: 5,  cut: "chocolate-cake",           frame: "bigplate", fill: ["#7A4630", "#3A1D12"], line: ["#F0C35C", "#8A5A1E"], glow: "rgba(58, 29, 18, .65)",  glow2: "rgba(240, 195, 92, .5)",  deco: "splash", desc: "Rich, moist dark chocolate sponge for birthdays and every celebration." },
@@ -779,7 +781,7 @@ footer .logo small { color: inherit; opacity: .6; }
       <div class="sw-body">
         <h3>${esc(p.name)}</h3>
         <p>${esc(cfg.desc)}</p>
-        <div class="sw-price">${fmt(p.price)} <small>${p.unit === "each" ? "each" : p.unit}</small></div>
+        <div class="sw-price"><span>${fmt(p.price)}</span><small>/ ${p.unit === "each" ? "piece" : p.unit}</small></div>
       </div>
       <button class="sw-order" type="button" data-order="${p.id}">Order Now</button>
     </article>`;
