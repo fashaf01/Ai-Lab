@@ -627,7 +627,7 @@ footer .logo small { color: inherit; opacity: .6; }
         <p style="max-width:40ch;opacity:.8;font-size:14px;margin:16px 0 0">Brownies, cookies, cakes and traditional sweets, baked fresh at home in Negombo, Sri Lanka. Place your order here and we'll confirm it by message.</p>
       </div>
       <div><h4>Shop</h4><ul><li><a href="#collection" data-nav="">Best Sellers</a></li><li><a href="#collection" data-nav="Brownies">Brownies</a></li><li><a href="#collection" data-nav="Cookies">Cookies</a></li><li><a href="#collection" data-nav="Cakes">Cakes</a></li><li><a href="#collection" data-nav="Sweets">Sweets</a></li></ul></div>
-      <div><h4>Order &amp; contact</h4><ul><li>Negombo, Sri Lanka</li><li><a href="https://wa.me/94782897650" target="_blank" rel="noopener">WhatsApp: <span style="user-select:all">078 289 7650</span></a></li><li><a href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">Instagram: @haju__bliss</a></li></ul></div>
+      <div><h4>Order &amp; contact</h4><ul><li>Negombo, Sri Lanka</li><li><a href="https://wa.me/94744133543" target="_blank" rel="noopener">WhatsApp: <span style="user-select:all">074 413 3543</span></a></li><li><a href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">Instagram: @haju__bliss</a></li></ul></div>
     </div>
     <div class="foot-base">
       <span>© <span id="yr">2026</span> Haju Bliss. Prices in Sri Lankan Rupees.</span>
@@ -680,7 +680,7 @@ footer .logo small { color: inherit; opacity: .6; }
   /* ---------- Settings: edit these ---------- */
   // Your WhatsApp number in international format, digits only (e.g. "9477xxxxxxx").
   // When set, "Send order" opens WhatsApp with the order filled in. When empty, the order is shown for copying.
-  const WHATSAPP_NUMBER = "94782897650"; // 078 289 7650
+  const WHATSAPP_NUMBER = "94744133543"; // 074 413 3543
   const INSTAGRAM = "haju__bliss";
 
   /* ---------- Products: edit this list to change the menu ---------- */
@@ -694,7 +694,7 @@ footer .logo small { color: inherit; opacity: .6; }
     { id: 6,  name: "Butter Cake with Cashews",  cat: "Cakes",    price: 2800, unit: "1 kg"    , best: 6,  choc: false, img: "images/butter-cake-cashew.jpg?v=3",       desc: "Our soft butter cake topped with roasted cashew nuts." },
     { id: 7,  name: "Butter Cake",               cat: "Cakes",    price: 2200, unit: "1 kg",     best: 7,  choc: false, img: "images/butter-cake.jpg?v=3",              desc: "Golden, buttery and light. The Sri Lankan tea-time classic." },
     { id: 8,  name: "Coffee Cake",               cat: "Cakes",    price: 2800, unit: "1 kg"    , best: 8,  choc: false, img: "images/coffee-cake.jpg?v=3",              desc: "A tender cake flavoured with real coffee. Lovely with a cup of tea." },
-    { id: 10, name: "Butter Cookies",            cat: "Cookies",  price: 50,   unit: "each",     best: 10, choc: false, img: "images/yanakatha.jpg?v=3",                desc: "A traditional sweet, freshly made and sugar-dusted." }
+    { id: 10, name: "Yanakatha",                 cat: "Sweets",   price: 50,   unit: "each",     best: 10, choc: false, img: "images/yanakatha.jpg?v=3",                desc: "A traditional sweet, freshly made and sugar-dusted." }
   ];
   const BEST_COUNT = 2; // how many top items get the "Best seller" badge and the spotlight
   const CATS = ["Brownies", "Cookies", "Cakes", "Sweets"];
@@ -726,7 +726,7 @@ footer .logo small { color: inherit; opacity: .6; }
     { id: 6,  cut: "butter-cake-cashew",       frame: "plate",    fill: ["#FFF2CF", "#E7BE68"], line: ["#F7D88A", "#A87420"], glow: "rgba(232, 176, 78, .65)", glow2: "rgba(255, 215, 120, .55)", deco: "cashew", desc: "Our butter cake crowned with roasted cashew nuts." },
     { id: 5,  cut: "chocolate-cake",           frame: "bigplate", fill: ["#7A4630", "#3A1D12"], line: ["#F0C35C", "#8A5A1E"], glow: "rgba(58, 29, 18, .65)",  glow2: "rgba(240, 195, 92, .5)",  deco: "splash", desc: "Rich, moist dark chocolate sponge for birthdays and every celebration." },
     { id: 8,  cut: "coffee-cake",              frame: "roundsq",  fill: ["#EBD3BA", "#A87A55"], line: ["#C79A6E", "#5A3A22"], glow: "rgba(111, 74, 47, .6)",  glow2: "rgba(199, 154, 110, .5)", deco: "bean",   desc: "A tender cake made with real coffee. Perfect with your evening tea." },
-    { id: 10, cut: "yanakatha",                frame: "circle",   fill: ["#FFFCF4", "#F6E8CB"], line: ["#FFF6E2", "#EBD3A4"], glow: "rgba(232, 196, 130, .55)", glow2: "rgba(255, 246, 226, .9)", deco: "crumb",  desc: "Melt-in-the-mouth butter cookies with a light sugar sparkle." }
+    { id: 10, cut: "yanakatha",                frame: "circle",   fill: ["#FFFCF4", "#F6E8CB"], line: ["#FFF6E2", "#EBD3A4"], glow: "rgba(232, 196, 130, .55)", glow2: "rgba(255, 246, 226, .9)", deco: "crumb",  desc: "A traditional sweet, freshly made and dusted with sugar." }
   ];
   const FRAME = {
     roundsq: '<rect x="18" y="18" width="164" height="164" rx="40" class="f-shape"/><rect x="30" y="30" width="140" height="140" rx="30" class="f-inner"/>',
@@ -945,8 +945,8 @@ footer .logo small { color: inherit; opacity: .6; }
         <button class="linkish" type="button" data-back>Back to bag</button>`;
     } else {
       $("#cartTitle").textContent = "Send your order";
-      body.innerHTML = `<p style="margin:0 0 12px">Tap <b>Send on WhatsApp</b> and your order opens in a chat with Haju Bliss (078 289 7650), ready to send. We'll reply to confirm your order and delivery.</p><pre class="summary" id="summary">${esc(orderText())}</pre>
-        <p class="note" style="margin-top:12px">WhatsApp not opening? Copy the order and send it to 078 289 7650 or to @${INSTAGRAM} on Instagram.</p>`;
+      body.innerHTML = `<p style="margin:0 0 12px">Tap <b>Send on WhatsApp</b> and your order opens in a chat with Haju Bliss (074 413 3543), ready to send. We'll reply to confirm your order and delivery.</p><pre class="summary" id="summary">${esc(orderText())}</pre>
+        <p class="note" style="margin-top:12px">WhatsApp not opening? Copy the order and send it to 074 413 3543 or to @${INSTAGRAM} on Instagram.</p>`;
       foot.innerHTML = `<a class="btn" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText())}" target="_blank" rel="noopener">Send on WhatsApp</a>
         <button class="btn ghost" type="button" data-copy>Copy order</button><button class="linkish" type="button" data-edit>Edit details</button>`;
     }
@@ -987,7 +987,7 @@ footer .logo small { color: inherit; opacity: .6; }
   let tt;
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 2600); }
 
-  const ANN = ["Baked fresh to order. Cakes need one day's notice.", "Order on WhatsApp: 078 289 7650", "Follow us on Instagram @haju__bliss", "Best sellers: lava brownies and chocolate loaded cookies", "Cash on delivery available", "Baking fresh in Negombo, Sri Lanka"];
+  const ANN = ["Baked fresh to order. Cakes need one day's notice.", "Order on WhatsApp: 074 413 3543", "Follow us on Instagram @haju__bliss", "Best sellers: lava brownies and chocolate loaded cookies", "Cash on delivery available", "Baking fresh in Negombo, Sri Lanka"];
   let ai = 0;
   const showAnn = d => { ai = (ai + d + ANN.length) % ANN.length; $("#annText").textContent = ANN[ai]; };
   $("#annPrev").addEventListener("click", () => showAnn(-1));
