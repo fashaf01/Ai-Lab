@@ -345,6 +345,37 @@ footer .logo small { color: inherit; opacity: .6; }
 @keyframes stamp-in { from { scale: 0; rotate: -120deg; opacity: 0; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+
+/* Instagram reel in the hero, framed like a phone */
+.reel-frame { position: relative; z-index: 1; width: 340px; max-width: 100%; margin: 0 auto; border-radius: 26px; overflow: hidden; background: var(--surface);
+  box-shadow: 0 0 0 7px var(--cocoa), var(--shadow); rotate: -1.5deg; animation: card-in .9s cubic-bezier(.2, .8, .2, 1) .3s backwards; }
+.reel-frame .instagram-media, .reel-frame iframe { display: block; width: 100% !important; min-width: 0 !important; max-width: 100% !important;
+  margin: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+.reel-fallback { display: grid; place-items: center; align-content: center; gap: 14px; aspect-ratio: 9 / 14; padding: 24px; text-align: center; text-decoration: none;
+  color: var(--ink); background: radial-gradient(circle at 50% 38%, var(--tint), var(--surface) 72%); }
+.reel-fallback img { width: 84px; border-radius: 50%; }
+.reel-fallback .play { width: 72px; height: 72px; border-radius: 50%; background: var(--berry); display: grid; place-items: center;
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--berry) 22%, transparent); animation: pulse 2.2s ease-in-out infinite; }
+.reel-fallback .play svg { width: 28px; fill: #fff; margin-left: 4px; }
+.reel-fallback b { font: 400 24px/1.2 var(--f-display); }
+.reel-fallback span:last-child { font-size: 13px; color: var(--muted); max-width: 22ch; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 20px color-mix(in srgb, var(--berry) 0%, transparent); } }
+@media (min-width: 1001px) {
+  .showcase { min-height: 580px; display: grid; align-items: center; }
+  .showcase .spot { position: absolute; inset: 0; display: block; pointer-events: none; z-index: 2; }
+  .showcase .spot-card { position: absolute; width: 27%; pointer-events: auto; }
+  .showcase .spot-card:nth-child(1) { left: -2%; bottom: 2%; }
+  .showcase .spot-card:nth-child(2) { right: -2%; top: 5%; }
+  .showcase .spot-card .txt { padding: 10px 12px 12px; }
+  .showcase .spot-card .txt b { font-size: 17px; }
+  .showcase .spot-card .no { font-size: 10px; padding: 4px 8px; top: 8px; left: 8px; }
+  .showcase .stamp { top: 0; left: 1%; right: auto; }
+}
+@media (max-width: 1000px) {
+  .showcase { display: grid; gap: 30px; }
+  .showcase .stamp { top: -28px; right: max(0px, calc(50% - 214px)); }
+}
+
 /* Responsive */
 @media (max-width: 1000px) {
   nav.main { display: none; }
@@ -449,7 +480,17 @@ footer .logo small { color: inherit; opacity: .6; }
         </div>
         <div class="meta"><a class="btn shine" href="https://wa.me/94782897650" target="_blank" rel="noopener">Order on WhatsApp</a><a class="btn ghost" href="https://www.instagram.com/haju__bliss/" target="_blank" rel="noopener">@haju__bliss</a></div>
       </div>
-      <div class="spot-wrap">
+      <div class="spot-wrap showcase">
+        <div class="reel-frame">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/Df0s0rbR7hX/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:transparent;border:0;margin:0;padding:0;width:100%">
+            <a class="reel-fallback" href="https://www.instagram.com/reel/Df0s0rbR7hX/" target="_blank" rel="noopener">
+              <img src="images/logo.png" alt="" width="84" height="84">
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+              <b>Watch us bake</b>
+              <span>Play our latest reel on Instagram · @haju__bliss</span>
+            </a>
+          </blockquote>
+        </div>
         <div class="spot" id="spot"></div>
         <div class="stamp" aria-hidden="true">
           <svg viewBox="0 0 120 120"><defs><path id="ring" d="M60 60m-47 0a47 47 0 1 1 94 0a47 47 0 1 1-94 0"/></defs>
@@ -951,5 +992,6 @@ footer .logo small { color: inherit; opacity: .6; }
   refresh(); saveCart();
 })();
 </script>
+<script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>
