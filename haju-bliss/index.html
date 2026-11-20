@@ -1027,7 +1027,7 @@ footer .logo small { color: inherit; opacity: .6; }
   const vid = $("#heroVideo"), vPlay = $("#vPlay"), vSound = $("#vSound");
   const tall = () => innerWidth / innerHeight < 0.85;
   function setVideoSource() {
-    const want = tall() ? "videos/hero-portrait.mp4?v=2" : "videos/hero-landscape.mp4?v=2";
+    const want = tall() ? "videos/hero-portrait.mp4?v=3" : "videos/hero-landscape.mp4?v=3";
     if (vid.currentSrc.endsWith(want) || vid.src.endsWith(want)) return;
     const wasPlaying = vid.src && !vid.paused;
     vid.poster = tall() ? "images/hero-poster-portrait.jpg" : "images/hero-poster.jpg";
