@@ -569,7 +569,7 @@ footer .logo small { color: inherit; opacity: .6; }
 <main id="main">
   <div class="drip" id="drip" aria-hidden="true"><div class="band"></div></div>
   <section class="vhero" id="hero" aria-label="Haju Bliss desserts">
-    <video class="vhero-video" id="heroVideo" muted playsinline loop preload="auto" poster="images/hero-poster.jpg" aria-hidden="true"></video>
+    <video class="vhero-video" id="heroVideo" autoplay muted playsinline webkit-playsinline loop preload="auto" disablepictureinpicture disableremoteplayback poster="images/hero-poster.jpg" aria-hidden="true"></video>
     <div class="vhero-shade" aria-hidden="true"></div>
     <div class="vhero-content">
       <span class="vhero-eyebrow">Haju Bliss · Homemade in Negombo</span>
@@ -1049,13 +1049,20 @@ footer .logo small { color: inherit; opacity: .6; }
   setVideoSource();
   vid.addEventListener("play", paintPlay);
   vid.addEventListener("pause", paintPlay);
-  vPlay.addEventListener("click", () => { vid.paused ? vid.play().catch(() => {}) : vid.pause(); });
+  let userPaused = false;
+  vPlay.addEventListener("click", () => { if (vid.paused) { userPaused = false; vid.play().catch(() => {}); } else { userPaused = true; vid.pause(); } });
   vSound.addEventListener("click", () => {
     vid.muted = !vid.muted; vid.volume = 0.5;
     if (!vid.muted && vid.paused) vid.play().catch(() => {});
     paintSound();
   });
-  if (!calm) vid.play().catch(paintPlay);
+  // Autoplay: start as soon as possible, and retry whenever the browser allows it
+  const tryPlay = () => { if (!userPaused && vid.paused) { vid.muted = vid.muted; vid.play().catch(paintPlay); } };
+  tryPlay();
+  ["loadeddata", "canplay"].forEach(ev => vid.addEventListener(ev, tryPlay));
+  ["pointerdown", "touchstart", "scroll", "keydown"].forEach(ev => addEventListener(ev, tryPlay, { passive: true }));
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) tryPlay(); });
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? tryPlay() : vid.pause())).observe(vid);
   paintPlay(); paintSound();
   let vr; addEventListener("resize", () => { clearTimeout(vr); vr = setTimeout(setVideoSource, 250); });
 
