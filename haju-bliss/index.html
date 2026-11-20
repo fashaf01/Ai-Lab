@@ -402,14 +402,15 @@ footer .logo small { color: inherit; opacity: .6; }
 .sweets-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; color: #A86B1F; }
 .sweets-eyebrow::before, .sweets-eyebrow::after { content: ""; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, #C99A4E); }
 .sweets-eyebrow::after { transform: scaleX(-1); }
-.sweets-head h2 { margin: 0; font: 400 clamp(32px, 4.6vw, 60px)/1.08 var(--f-display); letter-spacing: -.015em; text-wrap: balance; color: #3B1E14; }
-.sweets-head h2 em { font-style: normal; background: linear-gradient(100deg, #8A4A1E, #C98B2B 45%, #8A4A1E); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.sweets-head h2 { margin: 0; font: 400 clamp(40px, 6vw, 76px)/1.04 var(--f-display); letter-spacing: -.015em; text-wrap: balance; color: #3B1E14; }
+.sweets-head .sweets-tag { margin: 0; max-width: 30ch; font: 400 clamp(26px, 3.4vw, 44px)/1.15 var(--f-display); letter-spacing: -.01em; color: #3B1E14; text-wrap: balance; }
+.sweets-tag em, .sweets-head h2 em { font-style: normal; background: linear-gradient(100deg, #8A4A1E, #C98B2B 45%, #8A4A1E); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .sweets-head p { margin: 0; font-size: 17px; color: #7A5440; letter-spacing: .02em; }
 
-.sweets-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 28px; perspective: 1400px; }
+.sweets-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 28px; }
 .sw-card { --rx: 0deg; --ry: 0deg; --gx: 50%; position: relative; display: flex; flex-direction: column; background: linear-gradient(180deg, #FFFDF8, #FFF7EB);
   border: 1px solid rgba(201, 154, 110, .28); border-radius: 30px; padding: 18px 18px 22px; box-shadow: 0 1px 0 #fff inset, 0 22px 50px -18px rgba(92, 52, 36, .35), 0 6px 14px rgba(92, 52, 36, .06);
-  transform: rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d; transition: transform .35s ease-out, box-shadow .35s, opacity .8s ease, translate .8s cubic-bezier(.2, .8, .2, 1);
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d; transition: transform .35s ease-out, box-shadow .35s, opacity .8s ease, translate .8s cubic-bezier(.2, .8, .2, 1);
   transition-delay: 0s, 0s, calc(var(--i) * .12s), calc(var(--i) * .12s); }
 .sw-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .35s;
   background: radial-gradient(circle at var(--gx) 0%, rgba(255, 236, 190, .55), transparent 55%); }
@@ -427,7 +428,7 @@ footer .logo small { color: inherit; opacity: .6; }
 .sw-frame .f-inner { fill: none; stroke: var(--fb); stroke-width: 1.4; stroke-dasharray: 2 5; opacity: .7; }
 .sw-frame .f-choc { fill: none; stroke: #3A1B10; stroke-width: 9; }
 .sw-frame .f-drip { fill: #3A1B10; }
-.sw-badge { position: absolute; top: 4px; left: 4px; z-index: 4; transform: translateZ(60px); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+.sw-badge { position: absolute; top: 4px; left: 4px; z-index: 4; transform: translateZ(24px); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
   color: #3B1E14; background: linear-gradient(135deg, #FFE7A8, #E8B04E); border-radius: 999px; padding: 6px 12px; box-shadow: 0 6px 14px rgba(168, 107, 31, .35); }
 
 .sw-float { position: absolute; left: 50%; top: 46%; width: 60%; aspect-ratio: 1; translate: -50% -50%; z-index: 2; transform: translateZ(40px);
@@ -472,7 +473,7 @@ footer .logo small { color: inherit; opacity: .6; }
 @media (max-width: 1000px) { .sweets-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) {
   .sweets-inner { padding-block: 64px 80px; }
-  .sweets-head { margin-bottom: 36px; }
+  .sweets-head { margin-bottom: 52px; }
   .sweets-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .sw-card { --i: 0 !important; }
 }
@@ -590,9 +591,8 @@ footer .logo small { color: inherit; opacity: .6; }
     <div class="sweets-bg" id="sweetsBg" aria-hidden="true"></div>
     <div class="sweets-inner">
       <header class="sweets-head reveal">
-        <span class="sweets-eyebrow">Our Sweet Collection</span>
-        <h2 id="sweetsTitle">Not Just Desserts.<br><em>It's Happiness In Every Bite.</em></h2>
-        <p>Haju__bliss – Made With Love, Baked For You.</p>
+        <h2 id="sweetsTitle">Our Sweet Collection</h2>
+        <p class="sweets-tag">Not Just Desserts.<br><em>It's Happiness In Every Bite.</em></p>
       </header>
       <div class="sweets-grid" id="sweetsGrid"></div>
     </div>
